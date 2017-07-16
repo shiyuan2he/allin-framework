@@ -14,11 +14,11 @@ import java.sql.*;
  */
 public class DBUtils {
 
-    public static Connection getconn() {
+    public static Connection getConnetction() {
         Connection conn = null;
         String user   = "paac";
         String passwd = "paac@mariadb";
-        String url = "jdbc:mariadb://localhost:3306/emotherearth";
+        String url = "jdbc:mariadb://192.168.216.129:3306/test_shopping";
         //String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 
         try {
@@ -52,7 +52,7 @@ public class DBUtils {
     }
 
 
-    public static void queryClose(PreparedStatement pstmt, ResultSet rs, Connection conn) {
+    public static void closeResource(PreparedStatement pstmt, ResultSet rs, Connection conn) {
         try {
             if (pstmt != null) {
                 pstmt.close();

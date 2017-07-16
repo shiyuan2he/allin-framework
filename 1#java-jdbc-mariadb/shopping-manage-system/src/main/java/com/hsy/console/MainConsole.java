@@ -209,7 +209,7 @@ public class MainConsole {
                         mianPage();
                         break;
                     case 1:
-                        salesManManagementPage();
+                        salesManManagementConsole();
                         break;
                     case 2:
                         //GsalesPage.dailySaleGoodsPage();
@@ -349,7 +349,7 @@ public class MainConsole {
     /**
      * 售货员管理界面
      */
-    public static void salesManManagementPage() {/*
+    public static void salesManManagementConsole() {
 
         System.out.println("***************************\n");
         System.out.println("\t 1.添加售货员\n");
@@ -360,32 +360,29 @@ public class MainConsole {
         System.out.println("***************************");
 
         System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
-        do
-        {
+        do {
             String choice = ScannerInfoString();
             String regex  = "[0-5]";
-            if (choice.matches(regex))
-            {
+            if (choice.matches(regex)) {
                 int info = Integer.parseInt(choice);
-                switch (info)
-                {
+                switch (info) {
                     case 0:
-                        commodityManagementPage();
+                        //commodityManagementPage();
                         break;
                     case 1:
-                        SalesManPage.addSalesManPage();
+                        //SalesManPage.addSalesManPage();
                         break;
                     case 2:
-                        SalesManPage.updateSalesManPage();
+                        //SalesManPage.updateSalesManPage();
                         break;
                     case 3:
-                        SalesManPage.deleteSalesManPage();
+                        //SalesManPage.deleteSalesManPage();
                         break;
                     case 4:
-                        SalesManPage.querySalesManPage();
+                        //SalesManPage.querySalesManPage();
                         break;
                     case 5:
-                        SalesManPage.displaySalesManPage();
+                        SalespersonConsole.displaySalesManConsole();
                         break;
                     default:
                         break;
@@ -393,7 +390,7 @@ public class MainConsole {
             }
             System.err.println("\t!输入有误!");
             System.out.println("重新输入或按 0 返回上一级菜单.");
-        }while(true);*/
+        }while(true);
     }
 
 }
