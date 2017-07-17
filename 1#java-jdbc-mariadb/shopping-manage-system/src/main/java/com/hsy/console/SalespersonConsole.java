@@ -22,27 +22,24 @@ public class SalespersonConsole {
     /**
      * 1.添加售货员界面 已实现！
      */
-    public static void  addSalesManPage()
-    {
-        /*System.out.println("\t正在执行添加售货员操作\n");
+    public static void  addSalesManPage(){
+        ISalespersonDao salespersonDao = new SalespersonDaoImpl() ;
+        System.out.println("\t正在执行添加售货员操作\n");
 
         System.out.println("\n添加售货员-姓名");
         String sName = ScannerInfoString();
-
         System.out.println("\n添加售货员-密码");
         String sPssswd = ScannerInfoString();
 
-        SalesMan salesMan = new SalesMan(sName,sPssswd);
-        boolean bool = new SalesManDao().addSalesMan(salesMan);
+        Salesperson salesperson = new Salesperson(System.currentTimeMillis(),sName,sPssswd);
+        int count = salespersonDao.addSalesperson(salesperson) ;
 
-        if (bool)
-        {
-            System.out.println("\n\t!您已成功添加售货员到数据库!");
-        }else
-        {
+        if (count>0){
+            System.out.println("\n\t!您已成功添加"+count+"名售货员到数据库!");
+        }else {
             System.out.println("添加售货员失败");
         }
-        choiceSalesManNext("addSalesMan");*/
+        //choiceSalesManNext("addSalesMan");
     }
 
     /**

@@ -209,7 +209,7 @@ public class MainConsole {
                         mianPage();
                         break;
                     case 1:
-                        salesManManagementConsole();
+                        salespersonManagementConsole();
                         break;
                     case 2:
                         //GsalesPage.dailySaleGoodsPage();
@@ -349,7 +349,7 @@ public class MainConsole {
     /**
      * 售货员管理界面
      */
-    public static void salesManManagementConsole() {
+    public static void salespersonManagementConsole() {
 
         System.out.println("***************************\n");
         System.out.println("\t 1.添加售货员\n");
@@ -367,10 +367,10 @@ public class MainConsole {
                 int info = Integer.parseInt(choice);
                 switch (info) {
                     case 0:
-                        //commodityManagementPage();
+                        commodityManagementConsole();
                         break;
                     case 1:
-                        //SalesManPage.addSalesManPage();
+                        SalespersonConsole.addSalesManPage();
                         break;
                     case 2:
                         //SalesManPage.updateSalesManPage();

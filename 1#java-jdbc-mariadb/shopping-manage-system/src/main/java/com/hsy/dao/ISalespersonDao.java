@@ -26,4 +26,6 @@ public interface ISalespersonDao {
      * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
      */
     ArrayList<Salesperson> queryAllSalespersonList() ;
+
+    int addSalesperson(Salesperson salesperson);
 }

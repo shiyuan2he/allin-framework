@@ -16,9 +16,12 @@ public class DBUtils {
 
     public static Connection getConnetction() {
         Connection conn = null;
-        String user   = "paac";
-        String passwd = "paac@mariadb";
-        String url = "jdbc:mariadb://192.168.216.129:3306/test_shopping";
+//        String user   = "paac";
+//        String passwd = "paac@mariadb";
+        //String url = "jdbc:mariadb://192.168.216.129:3306/test_shopping";
+        String user   = "root";
+        String passwd = "htbuy@2016";
+        String url = "jdbc:mariadb://192.168.6.101:3306/test_shopping";
         //String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 
         try {
@@ -34,7 +37,7 @@ public class DBUtils {
         }
         return conn;
     }
-    public static void addClose(PreparedStatement pstmt, Connection conn) {
+    public static void closeResource(PreparedStatement pstmt, Connection conn) {
         try {
             if (pstmt != null) {
                 pstmt.close();
