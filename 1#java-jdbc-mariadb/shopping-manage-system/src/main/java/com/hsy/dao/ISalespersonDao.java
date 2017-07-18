@@ -3,6 +3,7 @@ package com.hsy.dao;
 import com.hsy.entity.Salesperson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author heshiyuan
@@ -28,4 +29,10 @@ public interface ISalespersonDao {
     ArrayList<Salesperson> queryAllSalespersonList() ;
 
     int addSalesperson(Salesperson salesperson);
+
+    List<Salesperson> querySalespersonList(String name) ;
+
+    int updateSalesperson(int key,Salesperson salesperson);
+
+    int deleteSalesperson(String name);
 }

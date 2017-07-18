@@ -6,6 +6,7 @@ import com.hsy.util.DBUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author heshiyuan
@@ -39,6 +40,92 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
         }
         return 0 ;
     }
+
+    public List<Salesperson> querySalespersonList(String name) {
+        List<Salesperson> salespersonList = new ArrayList<>();
+        conn = DBUtils.getConnetction() ;
+        String sql = "SELECT * FROM t_salesperson WHERE NAME=?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Long ids = rs.getLong("id");
+                String returnName = rs.getString(2);
+                String passWord = rs.getString(3);
+                Salesperson salesMan = new Salesperson(ids,returnName,passWord);
+                salespersonList.add(salesMan);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            DBUtils.closeResource(pstmt, rs, conn);
+        }
+        return salespersonList;
+    }
+
+    @Override
+    public int updateSalesperson(int key,Salesperson salesperson) {
+        conn = DBUtils.getConnetction() ;
+        switch (key) {
+            case 1:		//	3.1 更改售货员姓名
+                String sqlName = "UPDATE SALESMAN SET SNAME=? WHERE SID=?";
+                try {
+                    pstmt = conn.prepareStatement(sqlName);
+                    pstmt.setString(1, salesperson.getName());
+                    pstmt.setLong(2,salesperson.getId());
+                    int rs = pstmt.executeUpdate();
+                    if (rs > 0) {
+                       return rs ;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }finally{
+                    DBUtils.closeResource(pstmt,conn);
+                }
+                break;
+            case 2:		//	3.2 更改售货员密码
+                String sqlPrice = "UPDATE SALESMAN SET SPASSWORD=? WHERE SID=?";
+                try {
+                    pstmt = conn.prepareStatement(sqlPrice);
+                    pstmt.setString(1,salesperson.getPassword());
+                    pstmt.setLong(2, salesperson.getId());
+                    int rs = pstmt.executeUpdate();
+                    if (rs > 0) {
+                        return rs ;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }finally{
+                    DBUtils.closeResource(pstmt,conn);
+                }
+                break;
+            default:
+                break;
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteSalesperson(String name) {
+        boolean bool = false;
+        conn = DBUtils.getConnetction();
+        String sql = "DELETE FROM t_salesperson WHERE NAME=?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,name);
+            int rs = pstmt.executeUpdate();
+            if (rs > 0) {
+                return rs ;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            DBUtils.closeResource(pstmt,conn);
+        }
+        return 0;
+    }
+
     public ArrayList<Salesperson> queryAllSalespersonList() {
         ArrayList<Salesperson> salesManList = new ArrayList<Salesperson>();
         conn = DBUtils.getConnetction();

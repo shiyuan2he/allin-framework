@@ -1,6 +1,7 @@
 package com.hsy.util;
 
 import com.hsy.console.MainConsole;
+import com.hsy.console.SalespersonConsole;
 
 import java.util.Scanner;
 
@@ -102,26 +103,25 @@ public class ScannerChoice {
      * 获取用户-删除-完售货员-下一步
      */
     public static void choiceSalesManNext(String oper) {
-        /*do{
+        do{
             System.out.println("是否继续进行-当前操作:(Y/N)");
             String choice = ScannerChoice.ScannerInfoString();
-
             if ( "y".equals(choice) || "Y".equals(choice) ){
                 //下面的嵌套if-else 是让用户选择继续操作当前步骤所跳转到指定页面。（因为不同函数调用，跳转的指定函数不同）
                 if ("updateSalesMan".equals(oper)) {
-                    SalesManPage.updateSalesManPage();
+                    SalespersonConsole.updateSalesManPage();
                 }else if ("deleteSalesMan".equals(oper)) {
-                    SalesManPage.deleteSalesManPage();
+                    SalespersonConsole.deleteSalesManPage();
                 }else if ("addSalesMan".equals(oper)) {
-                    SalesManPage.addSalesManPage();
+                    SalespersonConsole.addSalesManPage();
                 }else if ("querySalesMan".equals(oper)) {
-                    SalesManPage.querySalesManPage();
+                    SalespersonConsole.querySalesManPage();
                 }
                 //上面的嵌套结束
             }else if ("N".equals(choice) || "n".equals(choice)) {
-                MainConsole.salesManManagementPage();
+                MainConsole.salespersonManagementConsole();
             }
             System.err.println("\t输入有误！");
-        } while (true);*/
+        } while (true);
     }
 }

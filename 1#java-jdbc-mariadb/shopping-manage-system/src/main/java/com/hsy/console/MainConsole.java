@@ -1,11 +1,5 @@
 package com.hsy.console;
-
-import com.hsy.entity.Goods;
-
-import java.util.ArrayList;
-
 import static com.hsy.util.ScannerChoice.ScannerInfoString;
-
 /**
  * @author heshiyuan
  * @description <p>管理系统主页面</p>
@@ -358,7 +352,6 @@ public class MainConsole {
         System.out.println("\t 4.查询售货员\n");
         System.out.println("\t 5.显示所有售货员\n");
         System.out.println("***************************");
-
         System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
         do {
             String choice = ScannerInfoString();
@@ -370,19 +363,19 @@ public class MainConsole {
                         commodityManagementConsole();
                         break;
                     case 1:
-                        SalespersonConsole.addSalesManPage();
+                        SalespersonConsole.addSalespersonConsole();
                         break;
                     case 2:
-                        //SalesManPage.updateSalesManPage();
+                        SalespersonConsole.updateSalespersonConsole();
                         break;
                     case 3:
-                        //SalesManPage.deleteSalesManPage();
+                        SalespersonConsole.deleteSalespersonConsole();
                         break;
                     case 4:
-                        //SalesManPage.querySalesManPage();
+                        SalespersonConsole.querySalespersonConsole();
                         break;
                     case 5:
-                        SalespersonConsole.displaySalesManConsole();
+                        SalespersonConsole.displaySalespersonConsole();
                         break;
                     default:
                         break;
