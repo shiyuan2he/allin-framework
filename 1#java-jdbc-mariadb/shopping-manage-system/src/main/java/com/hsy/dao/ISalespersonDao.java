@@ -2,7 +2,6 @@ package com.hsy.dao;
 
 import com.hsy.entity.Salesperson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ public interface ISalespersonDao {
      * @github https://github.com/shiyuan2he.git
      * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
      */
-    ArrayList<Salesperson> queryAllSalespersonList() ;
+    List<Salesperson> queryAllSalespersonList() ;
 
     int addSalesperson(Salesperson salesperson);
 
@@ -35,4 +34,5 @@ public interface ISalespersonDao {
     int updateSalesperson(int key,Salesperson salesperson);
 
     int deleteSalesperson(String name);
+    List<Salesperson> checkstandLog(String sName) ;
 }

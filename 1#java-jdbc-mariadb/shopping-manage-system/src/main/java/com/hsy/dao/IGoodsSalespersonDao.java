@@ -1,5 +1,9 @@
 package com.hsy.dao;
 
+import com.hsy.entity.GoodsSalesperson;
+
+import java.util.List;
+
 /**
  * @author heshiyuan
  * @description <p></p>
@@ -11,4 +15,6 @@ package com.hsy.dao;
  * @price ¥5    微信：hewei1109
  */
 public interface IGoodsSalespersonDao {
+    List<GoodsSalesperson> dailyGsales() ;
+    boolean shoppingSettlement(GoodsSalesperson goodsSalesperson);
 }

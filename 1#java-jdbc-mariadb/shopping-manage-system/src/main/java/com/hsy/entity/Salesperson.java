@@ -17,6 +17,11 @@ public class Salesperson {
 
     public Salesperson() {}
 
+    public Salesperson(Long id, String password) {
+        this.id = id;
+        this.password = password;
+    }
+
     public Salesperson(Long id, String name, String password) {
         this.id = id;
         this.name = name;

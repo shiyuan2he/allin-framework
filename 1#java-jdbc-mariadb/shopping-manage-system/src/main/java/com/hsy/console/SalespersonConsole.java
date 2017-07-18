@@ -185,9 +185,9 @@ public class SalespersonConsole {
     /**
      * 5.显示所有售货员界面
      */
-    public static void displaySalespersonConsole() {
+    public void displaySalespersonConsole() {
         ISalespersonDao salespersonDao = new SalespersonDaoImpl() ;
-        ArrayList<Salesperson> salesManList = salespersonDao.queryAllSalespersonList();
+        List<Salesperson> salesManList = salespersonDao.queryAllSalespersonList();
         if (salesManList.size() <= 0) {
             System.err.println("\t！！售货员列表为空！！");
             //MainPage.salesManManagementPage();

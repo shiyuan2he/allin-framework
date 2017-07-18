@@ -16,6 +16,27 @@ public class GoodsSalesperson {
     private Long salespersonId ;
     private Integer number ;
 
+    public GoodsSalesperson() {}
+
+    public GoodsSalesperson(Long id, Long goodsId, Long salespersonId) {
+        this.id = id;
+        this.goodsId = goodsId;
+        this.salespersonId = salespersonId;
+    }
+
+    public GoodsSalesperson(Long id, Long salespersonId, Integer number) {
+        this.id = id;
+        this.salespersonId = salespersonId;
+        this.number = number;
+    }
+
+    public GoodsSalesperson(Long id, Long goodsId, Long salespersonId, Integer number) {
+        this.id = id;
+        this.goodsId = goodsId;
+        this.salespersonId = salespersonId;
+        this.number = number;
+    }
+
     public Long getId() {
         return id;
     }

@@ -42,7 +42,7 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
     }
 
     public List<Salesperson> querySalespersonList(String name) {
-        List<Salesperson> salespersonList = new ArrayList<>();
+        List<Salesperson> salespersonList = new ArrayList<Salesperson>();
         conn = DBUtils.getConnetction() ;
         String sql = "SELECT * FROM t_salesperson WHERE NAME=?";
         try{
@@ -64,7 +64,6 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
         return salespersonList;
     }
 
-    @Override
     public int updateSalesperson(int key,Salesperson salesperson) {
         conn = DBUtils.getConnetction() ;
         switch (key) {
@@ -106,7 +105,6 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
         return 0;
     }
 
-    @Override
     public int deleteSalesperson(String name) {
         boolean bool = false;
         conn = DBUtils.getConnetction();
@@ -126,7 +124,7 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
         return 0;
     }
 
-    public ArrayList<Salesperson> queryAllSalespersonList() {
+    public List<Salesperson> queryAllSalespersonList() {
         ArrayList<Salesperson> salesManList = new ArrayList<Salesperson>();
         conn = DBUtils.getConnetction();
         String sql = "SELECT * FROM t_salesperson";
@@ -146,5 +144,32 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
             DBUtils.closeResource(pstmt, rs, conn);
         }
         return salesManList;
+    }
+    /**
+     * 1.前台收银登陆
+     * @param sName 用户名
+     * @return List<SalesMan> sPassWord,sId
+     */
+    public List<Salesperson> checkstandLog(String sName){
+        ArrayList<Salesperson> salesManInfo = new ArrayList<Salesperson>();
+        conn = DBUtils.getConnetction();
+        String sql = "SELECT ID,PASSWORD FROM t_SALESMAN WHERE NAME=?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,sName);
+
+            rs 	  = pstmt.executeQuery();
+            while (rs.next()){
+                String sPassWord = rs.getString("spassword");
+                Long sId = rs.getLong("id");
+                Salesperson salesMan = new Salesperson(sId,sPassWord);
+                salesManInfo.add(salesMan);
+            }
+        } catch (SQLException e1){
+            e1.printStackTrace();
+        }finally{
+            DBUtils.closeResource(pstmt, rs, conn);
+        }
+        return salesManInfo;
     }
 }

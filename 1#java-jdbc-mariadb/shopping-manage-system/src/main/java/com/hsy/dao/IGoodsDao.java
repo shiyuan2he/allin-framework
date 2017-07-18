@@ -22,4 +22,6 @@ public interface IGoodsDao {
     List<Goods> queryGoods(int key);
     List<Goods> displayGoods();
     Long query(String oper);
+    Long querySettlement() ;
+    List<Goods> queryGoodsKey(int gId,String gName) ;
 }
