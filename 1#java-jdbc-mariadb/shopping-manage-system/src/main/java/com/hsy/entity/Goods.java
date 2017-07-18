@@ -16,6 +16,36 @@ public class Goods {
     private Double price ;
     private Integer number ;
 
+    public Goods() {}
+
+    public Goods(Long id, Integer number) {
+        this.id = id;
+        this.number = number;
+    }
+
+    public Goods(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Goods(Long id, Double price) {
+        this.id = id;
+        this.price = price;
+    }
+
+    public Goods(String name, Double price, Integer number) {
+        this.name = name;
+        this.price = price;
+        this.number = number;
+    }
+
+    public Goods(Long id, String name, Double price, Integer number) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.number = number;
+    }
+
     public Long getId() {
         return id;
     }

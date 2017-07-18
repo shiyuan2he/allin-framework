@@ -1,5 +1,6 @@
 package com.hsy.util;
 
+import com.hsy.console.GoodsConsole;
 import com.hsy.console.MainConsole;
 import com.hsy.console.SalespersonConsole;
 
@@ -74,26 +75,26 @@ public class ScannerChoice {
      * 获取用户-添加完商品-下一步
      */
     public static void changedInfoNext(String oper) {
-//        do{
-//            System.out.println("是否继续进行-当前操作:(Y/N)");
-//            String choice = ScannerChoice.ScannerInfoString();
-//
-//            //在JAVA中: Equals比较的是值,==比较的是地址
-//            if ("y".equals(choice) || "Y".equals(choice)) {
-//                //下面的嵌套if-else 是让用户选择继续操作当前步骤所跳转到指定页面。（因为不同函数调用，跳转的指定函数不同）
-//                if ("upateGoodsPage".equals(oper)) {
-//                    GoodsPage.upateGoodsPage();
-//                }else if ("deleteGoodsPage".equals(oper)) {
-//                    GoodsPage.deleteGoodsPage();
-//                }else if ("addGoodsPage".equals(oper)) {
-//                    GoodsPage.addGoodsPage();
-//                }
-//                //上面的嵌套结束
-//            }else if ("N".equals(choice) || "n".equals(choice)) {
-//                MainPage.MaintenancePage();
-//            }
-//            System.out.println("\n输入有误！请重新输入.");
-//        } while (true);
+        GoodsConsole goodsConsole = new GoodsConsole() ;
+        do{
+            System.out.println("是否继续进行-当前操作:(Y/N)");
+            String choice = ScannerChoice.ScannerInfoString();
+            //在JAVA中: Equals比较的是值,==比较的是地址
+            if ("y".equals(choice) || "Y".equals(choice)) {
+                //下面的嵌套if-else 是让用户选择继续操作当前步骤所跳转到指定页面。（因为不同函数调用，跳转的指定函数不同）
+                if ("upateGoodsPage".equals(oper)) {
+                    goodsConsole.upateGoodsConsole();
+                }else if ("deleteGoodsPage".equals(oper)) {
+                    goodsConsole.deleteGoodsConsole();
+                }else if ("addGoodsPage".equals(oper)) {
+                    goodsConsole.addGoodsConsole();
+                }
+                //上面的嵌套结束
+            }else if ("N".equals(choice) || "n".equals(choice)) {
+                MainConsole.CommodityMaintenanceConsole();
+            }
+            System.out.println("\n输入有误！请重新输入.");
+        } while (true);
     }
 
     /**
@@ -109,13 +110,13 @@ public class ScannerChoice {
             if ( "y".equals(choice) || "Y".equals(choice) ){
                 //下面的嵌套if-else 是让用户选择继续操作当前步骤所跳转到指定页面。（因为不同函数调用，跳转的指定函数不同）
                 if ("updateSalesMan".equals(oper)) {
-                    SalespersonConsole.updateSalesManPage();
+                    SalespersonConsole.updateSalespersonConsole();
                 }else if ("deleteSalesMan".equals(oper)) {
-                    SalespersonConsole.deleteSalesManPage();
+                    SalespersonConsole.deleteSalespersonConsole();
                 }else if ("addSalesMan".equals(oper)) {
-                    SalespersonConsole.addSalesManPage();
+                    SalespersonConsole.addSalespersonConsole();
                 }else if ("querySalesMan".equals(oper)) {
-                    SalespersonConsole.querySalesManPage();
+                    SalespersonConsole.querySalespersonConsole();
                 }
                 //上面的嵌套结束
             }else if ("N".equals(choice) || "n".equals(choice)) {

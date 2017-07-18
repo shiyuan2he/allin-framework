@@ -41,7 +41,7 @@ public class MainConsole {
                         System.exit(1);//退出程序，返回值随便设置
                         break;
                     case 1:
-                        //MaintenancePage();
+                        CommodityMaintenanceConsole();
                         break;
                     case 2:
                         //checkstandLogPage();
@@ -61,9 +61,8 @@ public class MainConsole {
     /**
      * 1.商品维护界面
      */
-    public static void MaintenancePage()
-    {/*
-
+    public static void CommodityMaintenanceConsole() {
+        GoodsConsole goodsConsole = new GoodsConsole() ;
         System.out.println("***************************\n");
         System.out.println("\t 1.添加商品\n");
         System.out.println("\t 2.更改商品\n");
@@ -71,34 +70,30 @@ public class MainConsole {
         System.out.println("\t 4.查询商品\n");
         System.out.println("\t 5.显示所有商品\n");
         System.out.println("***************************");
-
         System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
-        do
-        {
+        do {
             String choice = ScannerInfoString();
             String regex = "[0-5]";
-            if (choice.matches(regex))
-            {
+            if (choice.matches(regex)) {
                 int info = Integer.parseInt(choice);
-                switch (info)
-                {
+                switch (info) {
                     case 0:
                         mianPage();
                         break;
                     case 1:
-                        GoodsPage.addGoodsPage();
+                        goodsConsole.addGoodsConsole();
                         break;
                     case 2:
-                        GoodsPage.upateGoodsPage();
+                        goodsConsole.upateGoodsConsole();
                         break;
                     case 3:
-                        GoodsPage.deleteGoodsPage();
+                        goodsConsole.deleteGoodsConsole();
                         break;
                     case 4:
-                        GoodsPage.queryGoodsPage();
+                        goodsConsole.queryGoodsConsole();
                         break;
                     case 5:
-                        GoodsPage.displayGoodsPage();
+                        goodsConsole.displayGoodsConsole();
                         break;
                     default:
                         break;
@@ -106,7 +101,7 @@ public class MainConsole {
             }
             System.err.println("!输入有误!");
             System.out.println("重新输入或按 0 返回上一级菜单.");
-        }while(true);*/
+        }while(true);
     }
 
     /**
