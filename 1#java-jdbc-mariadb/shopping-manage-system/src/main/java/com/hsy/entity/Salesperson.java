@@ -11,28 +11,28 @@ package com.hsy.entity;
  * @price ¥5    微信：hewei1109
  */
 public class Salesperson {
-    private Long id ;
+    private Integer id ;
     private String name ;
     private String password ;
 
     public Salesperson() {}
 
-    public Salesperson(Long id, String password) {
+    public Salesperson(Integer id, String password) {
         this.id = id;
         this.password = password;
     }
 
-    public Salesperson(Long id, String name, String password) {
+    public Salesperson(Integer id, String name, String password) {
         this.id = id;
         this.name = name;
         this.password = password;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

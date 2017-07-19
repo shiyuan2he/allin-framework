@@ -11,53 +11,46 @@ package com.hsy.entity;
  * @price ¥5    微信：hewei1109
  */
 public class GoodsSalesperson {
-    private Long id ;
-    private Long goodsId ;
-    private Long salespersonId ;
+    private Integer id ;
+    private Integer goodsId ;
+    private Integer salespersonId ;
     private Integer number ;
 
     public GoodsSalesperson() {}
 
-    public GoodsSalesperson(Long id, Long goodsId, Long salespersonId) {
+    public GoodsSalesperson(Integer id, Integer goodsId, Integer salespersonId) {
         this.id = id;
         this.goodsId = goodsId;
         this.salespersonId = salespersonId;
     }
-
-    public GoodsSalesperson(Long id, Long salespersonId, Integer number) {
-        this.id = id;
-        this.salespersonId = salespersonId;
-        this.number = number;
-    }
-
-    public GoodsSalesperson(Long id, Long goodsId, Long salespersonId, Integer number) {
+    public GoodsSalesperson(Integer id, Integer goodsId, Integer salespersonId, Integer number) {
         this.id = id;
         this.goodsId = goodsId;
         this.salespersonId = salespersonId;
         this.number = number;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getGoodsId() {
+    public int getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Long goodsId) {
+    public void setGoodsId(int goodsId) {
         this.goodsId = goodsId;
     }
 
-    public Long getSalespersonId() {
+    public Integer getSalespersonId() {
         return salespersonId;
     }
 
-    public void setSalespersonId(Long salespersonId) {
+    public void setSalespersonId(Integer salespersonId) {
         this.salespersonId = salespersonId;
     }
 

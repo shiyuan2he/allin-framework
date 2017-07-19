@@ -11,46 +11,45 @@ package com.hsy.entity;
  * @price ¥5    微信：hewei1109
  */
 public class Goods {
-    private Long id ;
+    private Integer id ;
     private String name ;
     private Double price ;
     private Integer number ;
 
     public Goods() {}
 
-    public Goods(Long id, Integer number) {
+    public Goods(Integer id, Integer number) {
         this.id = id;
         this.number = number;
     }
 
-    public Goods(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Goods(Long id, Double price) {
+    public Goods(Integer id, Double price) {
         this.id = id;
         this.price = price;
     }
 
+    public Goods(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
     public Goods(String name, Double price, Integer number) {
         this.name = name;
         this.price = price;
         this.number = number;
     }
 
-    public Goods(Long id, String name, Double price, Integer number) {
+    public Goods(Integer id, String name, Double price, Integer number) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.number = number;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

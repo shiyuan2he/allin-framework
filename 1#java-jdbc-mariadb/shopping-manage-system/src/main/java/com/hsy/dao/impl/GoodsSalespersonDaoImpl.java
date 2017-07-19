@@ -58,14 +58,14 @@ public class GoodsSalespersonDaoImpl extends BaseDaoImpl implements IGoodsSalesp
     public boolean shoppingSettlement(GoodsSalesperson goodsSalesperson) {
         boolean bool = false;
         conn = DBUtils.getConnetction();
-        String sql = "INSERT INTO GSALES(GID,SID,SNUM) VALUES(?,?,?)";
+        String sql = "INSERT INTO t_r_goods_salesperson(id,salesperosn_id,goods_id,NUMBER) VALUES(?,?,?,?)";
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, goodsSalesperson.getId());
-            pstmt.setLong(2, goodsSalesperson.getSalespersonId());
-            pstmt.setLong(3, goodsSalesperson.getGoodsId());
-
+            pstmt.setInt(1, goodsSalesperson.getId());
+            pstmt.setInt(2, goodsSalesperson.getSalespersonId());
+            pstmt.setInt(3, goodsSalesperson.getGoodsId());
+            pstmt.setInt(4, goodsSalesperson.getNumber());
             int rs = pstmt.executeUpdate();
             if (rs > 0) {
                 bool = true;
