@@ -23,12 +23,11 @@ import java.util.List;
  */
 public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
     ScannerChoice scannerChoice = new ScannerChoice();
-
     /**
-     * 1.添加商品到数据库goods表
-     *
+     * @description <p>添加商品到数据库t_goods表</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:39
      * @param goods 商品对象
-     * @return boolean
      */
     public boolean addGoods(Goods goods) {
         boolean bool = false;
@@ -51,13 +50,12 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
         }
         return bool;
     }
-
     /**
-     * 2.更改商品信息到数据库goods表
-     *
+     * @description <p>更改商品信息到数据库t_goods表</p>
+     * @author heshiyuan
      * @param key   选择要更改商品信息
      * @param goods 商品对象
-     * @return boolean
+     * @date 2017/7/20 11:39
      */
     public boolean updateGoods(int key, Goods goods) {
         boolean bool = false;
@@ -118,12 +116,10 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
         }
         return bool;
     }
-
     /**
-     * 3.从数据库goods表中-刪除商品
-     *
-     * @param id 商品编号
-     * @return boolean
+     * @description <p>从数据库goods表中-刪除商品</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:38
      */
     public boolean deleteGoods(int id) {
         boolean bool = false;
@@ -143,30 +139,25 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
         }
         return bool;
     }
-
     /**
-     * 4.查询商品信息
-     *
-     * @param key 查询方式
-     * @return ArrayList<Goods>
+     * @description <p>查询商品信息</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:38
+     * param key 查询方式
      */
     public List<Goods> queryGoods(int key) {
         ArrayList<Goods> goodsList = new ArrayList<Goods>();
         conn = DBUtils.getConnetction();
+        String sql = "" ;
         switch (key) {
             case 1:
                 //	key=1商品 数量 升序查询
-                String sqlGnum = "SELECT * FROM t_goods ORDER BY NUMBER ASC";
+                sql = "SELECT * FROM t_goods ORDER BY NUMBER ASC";
                 try {
-                    pstmt = conn.prepareStatement(sqlGnum);
+                    pstmt = conn.prepareStatement(sql);
                     rs = pstmt.executeQuery();
                     while (rs.next()) {
-                        int id = rs.getInt("id");
-                        String name = rs.getString(2);
-                        Double price = rs.getDouble(3);
-                        int num = rs.getInt(4);
-                        Goods goods = new Goods(id, name, price, num);
-                        goodsList.add(goods);
+                        goodsList.add(convertBean(rs));
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -181,12 +172,7 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
                     pstmt = conn.prepareStatement(sqlGprice);
                     rs = pstmt.executeQuery();
                     while (rs.next()) {
-                        int id = rs.getInt("id");
-                        String name = rs.getString(2);
-                        Double price = rs.getDouble(3);
-                        int num = rs.getInt(4);
-                        Goods goods = new Goods(id, name, price, num);
-                        goodsList.add(goods);
+                        goodsList.add(convertBean(rs));
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -203,12 +189,7 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
                     pstmt.setString(1, nameGet);
                     rs = pstmt.executeQuery();
                     while (rs.next()) {
-                        int id = rs.getInt("id");
-                        String name = rs.getString(2);
-                        Double price = rs.getDouble(3);
-                        int num = rs.getInt(4);
-                        Goods goods = new Goods(id, name, price, num);
-                        goodsList.add(goods);
+                        goodsList.add(convertBean(rs));
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -221,7 +202,6 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
         }
         return goodsList;
     }
-
     /**
      * @description <p>显示所有商品信息</p>
      * @returnType Map<String,String>
@@ -256,7 +236,11 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
         }
         return goodsList;
     }
-
+    /**
+     * @description <p></p>
+     * @author heshiyuan 
+     * @date 2017/7/20 11:23
+     */
     public int query(String oper) {
         int id = -1;
         //键盘获取商品名字
@@ -309,11 +293,10 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
         }
         return gid;
     }
-
     /**
-     * 根据商品 gid or gName查询商品
-     *
-     * @return 商品信息
+     * @description <p>根据商品 gid or gName查询商品</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:23
      */
     public List<Goods> queryGoodsKey(int id, String name) {
         List<Goods> goodsList = new ArrayList<Goods>();

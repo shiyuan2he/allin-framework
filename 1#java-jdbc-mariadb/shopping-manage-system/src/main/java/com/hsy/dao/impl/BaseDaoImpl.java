@@ -1,7 +1,4 @@
 package com.hsy.dao.impl;
-
-import com.hsy.util.DBUtils;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

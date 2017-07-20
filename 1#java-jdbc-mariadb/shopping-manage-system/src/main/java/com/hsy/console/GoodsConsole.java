@@ -1,14 +1,10 @@
 package com.hsy.console;
-
 import com.hsy.dao.IGoodsDao;
 import com.hsy.dao.impl.GoodsDaoImpl;
 import com.hsy.entity.Goods;
 import com.hsy.util.MathUtils;
 import com.hsy.util.ScannerChoice;
-
 import java.util.List;
-import java.util.Random;
-
 import static com.hsy.util.ScannerChoice.*;
 
 /**
@@ -20,8 +16,6 @@ import static com.hsy.util.ScannerChoice.*;
  * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
  */
 public class GoodsConsole {
-    ScannerChoice scannerChoice = new ScannerChoice() ;
-    MainConsole mainConsole = new MainConsole() ;
     /**
      *
      * @description <p>添加商品控制台</p>
@@ -53,9 +47,10 @@ public class GoodsConsole {
         }
         ScannerChoice.changedInfoNext("addGoodsPage");//选择下一步
     }
-
     /**
-     * 2.更改商品界面
+     * @description <p>更改商品界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:15
      */
     public static void upateGoodsConsole(){
         IGoodsDao goodsDao = new GoodsDaoImpl();
@@ -123,9 +118,10 @@ public class GoodsConsole {
             System.out.println("请重新选择,或者按0返回上一级菜单.");
         } while (true);
     }
-
     /**
-     * 3.删除商品界面
+     * @description <p>删除商品界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:15
      */
     public static void deleteGoodsConsole(){
         IGoodsDao goodsDao = new GoodsDaoImpl();
@@ -152,9 +148,10 @@ public class GoodsConsole {
             System.out.println("\t!!输入有误,请重新输入!!\n");
         } while (true);
     }
-
     /**
-     * 4.查询商品界面
+     * @description <p>查询商品界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:15
      */
     public static void queryGoodsConsole(){
         IGoodsDao goodsDao = new GoodsDaoImpl();
@@ -235,9 +232,10 @@ public class GoodsConsole {
             System.out.println("请输入 0 返回上一级菜单");
         } while (boolNext);
     }
-
     /**
-     * 5.展示所有商品界面
+     * @description <p>展示所有商品界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:15
      */
     public static void displayGoodsConsole(){
         IGoodsDao goodsDao = new GoodsDaoImpl();

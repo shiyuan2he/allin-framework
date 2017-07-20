@@ -1,5 +1,4 @@
 package com.hsy.console;
-
 import com.hsy.dao.IGoodsDao;
 import com.hsy.dao.IGoodsSalespersonDao;
 import com.hsy.dao.ISalespersonDao;
@@ -12,7 +11,6 @@ import com.hsy.entity.Salesperson;
 import com.hsy.util.Algorithm;
 import com.hsy.util.MathUtils;
 import com.hsy.util.ScannerChoice;
-
 import java.util.List;
 import static com.hsy.util.ScannerChoice.ScannerNum;
 import static com.hsy.util.ScannerChoice.scannerInfoString;
@@ -29,14 +27,17 @@ import static com.hsy.util.ScannerChoice.scannerInfoString;
  */
 public class MainConsole {
     /**
-     * 入口函数
+     * @description <p>入口</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:13
      */
     public static void main(String[] args) {
         MainConsole.mianConsole();
     }
-
     /**
-     * 主界面 已实现！已校验！
+     * @description <p>主界面 已实现！已校验！</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:11
      */
     public static void mianConsole() {
         System.out.println("***************************\n");
@@ -74,9 +75,10 @@ public class MainConsole {
             System.out.println("重新选择或者按0退出.");
         } while (true);
     }
-
     /**
-     * 1.商品维护界面
+     * @description <p>商品维护界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:11
      */
     public static void CommodityMaintenanceConsole() {
         GoodsConsole goodsConsole = new GoodsConsole();
@@ -120,9 +122,10 @@ public class MainConsole {
             System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
     }
-
     /**
-     * 2.前台收银登陆界面
+     * @description <p>前台收银登陆界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:11
      */
     public static void checkstandLogConsole() {
         System.out.println("\n*******欢迎使用商超购物管理系统*******\n");
@@ -185,9 +188,10 @@ public class MainConsole {
             System.out.println("重新输入或按 0 返回上一级菜单");
         } while (true);
     }
-
     /**
-     * 3.商品管理控制台
+     * @description <p>商品管理控制台</p>
+     * @author heshiyuan 
+     * @date 2017/7/20 11:11
      */
     public static void commodityManagementConsole() {
         System.out.println("***************************\n");
@@ -220,9 +224,17 @@ public class MainConsole {
             System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
     }
-
     /**
-     * 购物结算界面
+     *
+     * @description <p>购物结算界面</p>
+     * 方法名:shoppingSettlementConsole
+     * 类名:MainConsole
+     * @author heshiyuan
+     * @email shiyuan4work@sina.com
+     * @date 2017/7/20 11:02
+     * @price ￥:5毛
+     * @copyright	此方法版权归本人所有，复制或者剪切请通知本人或者捐赠 通知方式：shiyuan4work@sina.com
+     * @callnumber 15910868535
      */
     public static void shoppingSettlementConsole(Integer salesManSid) {
         IGoodsDao goodsDao = new GoodsDaoImpl();
@@ -279,12 +291,11 @@ public class MainConsole {
                                                     System.err.println("\t！！缴纳金额不足！！");
                                                     System.out.println("\n请重新输入缴纳金额($)");
                                                 } else {
-                                                    /*	这里是购物结算操作数据库！！！！！！----------------------	  1.更改goods表数量
-                                                    2. 增加sales表数量 原商品数量gNum。结算员Id salesManSid */
+                                                    /*	这里是购物结算操作数据库！！！！！！----------------------	  1.更改t_goods表数量*/
                                                     //对sales表操作
-                                                    GoodsSalesperson gSales = new GoodsSalesperson(MathUtils.generateRandomByLength(8),goods.getId(), salesManSid, choicegoodsNum);
+                                                    GoodsSalesperson gSales = new GoodsSalesperson(MathUtils.generateRandomByLength(8),goods.getId(),
+                                                            salesManSid, choicegoodsNum, null);
                                                     boolean insert = goodsSalespersonDao.shoppingSettlement(gSales);
-
                                                     //对goods表操作
                                                     int goodsNewNum = gNum - choicegoodsNum; //现在goods表中该商品数量
                                                     Goods newGoods = new Goods(goods.getId(), goodsNewNum);
@@ -315,9 +326,10 @@ public class MainConsole {
             }
         } while (true);
     }
-
     /**
-     * 售货员管理界面
+     * @description <p>售货员管理界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:07
      */
     public static void salespersonManagementConsole() {
         System.out.println("***************************\n");
@@ -361,5 +373,4 @@ public class MainConsole {
             System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
     }
-
 }

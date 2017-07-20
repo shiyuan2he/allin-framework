@@ -1,5 +1,5 @@
 package com.hsy.entity;
-
+import java.util.Date;
 /**
  * @author heshiyuan
  * @description <p></p>
@@ -15,6 +15,7 @@ public class GoodsSalesperson {
     private Integer goodsId ;
     private Integer salespersonId ;
     private Integer number ;
+    private Date salesTime ;
 
     public GoodsSalesperson() {}
 
@@ -28,6 +29,14 @@ public class GoodsSalesperson {
         this.goodsId = goodsId;
         this.salespersonId = salespersonId;
         this.number = number;
+    }
+
+    public GoodsSalesperson(Integer id, Integer goodsId, Integer salespersonId, Integer number, Date salesTime) {
+        this.id = id;
+        this.goodsId = goodsId;
+        this.salespersonId = salespersonId;
+        this.number = number;
+        this.salesTime = salesTime;
     }
 
     public Integer getId() {
@@ -60,5 +69,17 @@ public class GoodsSalesperson {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public Date getSalesTime() {
+        return salesTime;
+    }
+
+    public void setSalesTime(Date salesTime) {
+        this.salesTime = salesTime;
     }
 }

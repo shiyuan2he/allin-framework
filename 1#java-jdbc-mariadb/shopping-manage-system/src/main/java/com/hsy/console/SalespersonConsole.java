@@ -21,7 +21,9 @@ import static com.hsy.util.ScannerChoice.scannerInfoString;
  */
 public class SalespersonConsole {
     /**
-     * 1.添加售货员界面 已实现！
+     * @description <p>添加售货员界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:13
      */
     public static void  addSalespersonConsole(){
         ISalespersonDao salespersonDao = new SalespersonDaoImpl() ;
@@ -39,9 +41,10 @@ public class SalespersonConsole {
         }
         ScannerChoice.choiceSalesManNext("addSalesMan");
     }
-
     /**
-     * 2.更改售货员界面
+     * @description <p>更改售货员界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:13
      */
     public static void updateSalespersonConsole() {
         ISalespersonDao salespersonDao = new SalespersonDaoImpl();
@@ -109,9 +112,10 @@ public class SalespersonConsole {
             } while (true);
         }
     }
-
     /**
-     * 3.删除售货员界面
+     * @description <p>删除售货员界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:13
      */
     public static void deleteSalespersonConsole(){
         ISalespersonDao salespersonDao = new SalespersonDaoImpl() ;
@@ -154,10 +158,10 @@ public class SalespersonConsole {
             } while (true);
         }
     }
-
-
     /**
-     * 4.查询售货员界面 已实现！
+     * @description <p>查询售货员界面 已实现！</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:12
      */
     public static void querySalespersonConsole() {
         ISalespersonDao salespersonDao = new SalespersonDaoImpl() ;
@@ -178,7 +182,9 @@ public class SalespersonConsole {
         ScannerChoice.choiceSalesManNext("querySalesMan"); //param：调用者
     }
     /**
-     * 5.显示所有售货员界面
+     * @description <p>显示所有售货员界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:12
      */
     public static void displaySalespersonConsole() {
         ISalespersonDao salespersonDao = new SalespersonDaoImpl() ;
