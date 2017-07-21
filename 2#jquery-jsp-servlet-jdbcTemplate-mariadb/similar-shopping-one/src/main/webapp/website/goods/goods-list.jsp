@@ -10,6 +10,23 @@
     <title>商品列表</title>
 </head>
 <body>
-
+    <div id="container">
+        <div>
+            <ul>
+                <th>id${requestScope.goodsList[0].id}</th>
+                <th>name</th>
+                <th>price</th>
+                <th>number</th>
+            </ul>
+            <ul>
+                <c:forEach var="goodsList" items="${requestScope.goodsList}">
+                    <li>${goodsList.id}</li>
+                    <li>${goodsList.name}</li>
+                    <li>${goodsList.price}</li>
+                    <li>${goodsList.number}</li>
+                </c:forEach>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
