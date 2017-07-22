@@ -12,20 +12,22 @@
 <body>
     <div id="container">
         <div>
-            <ul>
-                <th>id${requestScope.goodsList[0].id}</th>
-                <th>name</th>
-                <th>price</th>
-                <th>number</th>
-            </ul>
-            <ul>
-                <c:forEach var="goodsList" items="${requestScope.goodsList}">
-                    <li>${goodsList.id}</li>
-                    <li>${goodsList.name}</li>
-                    <li>${goodsList.price}</li>
-                    <li>${goodsList.number}</li>
+            <table>
+                <tr>
+                    <th>id${requestScope.goodsList[0].id}</th>
+                    <th>name</th>
+                    <th>price</th>
+                    <th>number</th>
+                </tr>
+                <c:forEach var="goods" items="${requestScope.goodsList}">
+                    <tr>
+                        <td>${goods.id}</td>
+                        <td>${goods.name}</td>
+                        <td>${goods.price}</td>
+                        <td>${goods.number}</td>
+                    </tr>
                 </c:forEach>
-            </ul>
+            </table>
         </div>
     </div>
 </body>

@@ -21,7 +21,7 @@ import java.util.List;
  * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
  */
 @Repository("goodsDao")
-public class GoodsDaoImpl extends BaseDaoImpl<Goods> implements IGoodsDao{
+public class GoodsDaoImpl extends BaseDaoImpl<Goods> implements IGoodsDao {
     @Override
     public List<Goods> selectList() {
         String sql = "select id,name,price,number from t_goods" ;

@@ -1,5 +1,4 @@
 package com.hsy.service.impl;
-
 import com.hsy.dao.IGoodsDao;
 import com.hsy.entity.Goods;
 import com.hsy.service.IGoodsService;

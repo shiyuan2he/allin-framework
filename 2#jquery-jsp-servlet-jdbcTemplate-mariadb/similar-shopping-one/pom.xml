@@ -81,7 +81,16 @@
       <artifactId>commons-lang3</artifactId>
       <version>3.4</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.hsy</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.7</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>similar-shopping-one</finalName>
