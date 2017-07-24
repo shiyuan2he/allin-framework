@@ -21,7 +21,7 @@ public class GoodsDaoImplTest {
     IGoodsDao goodsDao ;
     @Test
     public void testSelectGoodsList(){
-        System.out.println(goodsDao.selectList().toString()) ;
+        System.out.println(goodsDao.selectList(1,4).toString()) ;
     }
     @Test
     public void testGetById(){

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.hsy.bean.ResponseBean;
 import com.hsy.entity.Goods;
 import com.hsy.service.IGoodsService;
+import com.hsy.util.Constant;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,43 +38,43 @@ public class BusinessServlet extends HttpServlet {
        this.doPost(request,response);
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Constant.requestThreadLocal = new ThreadLocal<HttpServletRequest>(){
+            @Override
+            protected HttpServletRequest initialValue() {
+                return request ;
+            }
+        };
+        Constant.responseThreadLocal =  new ThreadLocal<HttpServletResponse>(){
+            @Override
+            protected HttpServletResponse initialValue() {
+                return response ;
+            }
+        };
         ServletContext servletContext = this.getServletContext();
         WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
         goodsService = (IGoodsService) wac.getBean("goodsService");
         String businessType = request.getParameter("businessType") ;
         if(StringUtils.equalsIgnoreCase(businessType,"goodsList")){
-            List<Goods> goodsList = goodsService.selectGoodsListOfPage() ;
+            String currentPage = request.getParameter("currentPage") ;
+            String pageSize = request.getParameter("pageSize") ;
+            List<Goods> goodsList = goodsService.selectGoodsListOfPage(Integer.parseInt(currentPage),Integer.parseInt(pageSize)) ;
             for(Goods goods : goodsList){
                 System.out.println("id:{"+goods.getId()+"} name:{"+goods.getName()+"} price:{"+goods.getPrice()+"} number:{"+goods.getNumber()+"}") ;
                 _logger.info("id:{"+goods.getId()+"} name:{"+goods.getName()+"} price:{"+goods.getPrice()+"} number:{"+goods.getNumber()+"}") ;
             }
             //request.setAttribute("goodsList",goodsService.selectGoodsListOfPage());
             //request.getRequestDispatcher("/website/goods/goods-list.jsp").forward(request,response);
-            writeJson(request,response,new ResponseBean("0000","success",goodsList));
+            long countAll = 0l;
+            try{
+                countAll = (long)Constant.requestThreadLocal.get().getAttribute("totalCount") ;
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            writeJson(request,response,new ResponseBean("0000","success",
+                    goodsList,Integer.parseInt(currentPage),Integer.parseInt(pageSize),
+                    countAll));
         }
-    }
-
-    private void writeHtml(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("text/html");
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-        out.println("<HTML>");
-        out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-        out.println("  <BODY>");
-        out.print("    This is ");
-        out.print(this.getClass());
-        out.println(", using the POST method");
-        out.println("  </BODY>");
-        out.println("</HTML>");
-        out.flush();
-        out.close();
     }
     private void writeJson(HttpServletRequest request, HttpServletResponse response,Object obj) {
         response.setContentType("text/html");

@@ -20,7 +20,7 @@ public class GoodsServiceImpl implements IGoodsService{
     @Autowired
     IGoodsDao goodsDao ;
     @Override
-    public List<Goods> selectGoodsListOfPage() {
-        return goodsDao.selectList();
+    public List<Goods> selectGoodsListOfPage(Integer currentPage,Integer pageSize) {
+        return goodsDao.selectList(currentPage,pageSize);
     }
 }
