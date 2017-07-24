@@ -3,11 +3,12 @@ package com.hsy.dao.impl;
 import com.hsy.dao.IGoodsDao;
 import com.hsy.entity.Goods;
 import com.hsy.util.Constant;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowCallbackHandler;
-import org.springframework.jdbc.core.RowMapper;
+import com.hsy.util.MathUtils;
+import org.springframework.jdbc.core.*;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,6 +24,69 @@ import java.util.List;
  */
 @Repository("goodsDao")
 public class GoodsDaoImpl extends BaseDaoImpl<Goods> implements IGoodsDao {
+    @Override
+    public boolean save(Goods goods) {
+        final String sql = "insert into t_goods values(?,?,?,?)";
+        int count = jdbcTemplate.update(sql, new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setInt(0, MathUtils.generateRandomByLength(8));
+                ps.setString(1, goods.getName());
+                ps.setDouble(2, goods.getPrice());
+                ps.setInt(3, goods.getNumber());
+            }
+        });
+        if(count>0){
+            return true ;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean saveOtherWay(Goods goods) {
+        final String sql = "insert into t_goods values(?,?,?,?)";
+        int count = jdbcTemplate.update(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps=con.prepareStatement(sql);
+                ps.setInt(0, MathUtils.generateRandomByLength(8));
+                ps.setString(1, goods.getName());
+                ps.setDouble(2, goods.getPrice());
+                ps.setInt(3, goods.getNumber());
+                return ps;
+            }
+        });
+        if(count>0){
+            return true ;
+        }
+        return false;
+    }
+
+    @Override
+    public Integer batchSave(List<Goods> list) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(Goods goods) {
+        return false;
+    }
+
+    @Override
+    public Integer batchDelete(List<Goods> list) {
+        return null;
+    }
+
+    @Override
+    public boolean update(Goods goods) {
+        return false;
+    }
+
+    @Override
+    public Integer batchUpdate(List<Goods> list) {
+        return null;
+    }
+
     @Override
     public List<Goods> selectList(Integer currentPage,Integer pageSize) {
         if(currentPage <= 1) currentPage = 1;
