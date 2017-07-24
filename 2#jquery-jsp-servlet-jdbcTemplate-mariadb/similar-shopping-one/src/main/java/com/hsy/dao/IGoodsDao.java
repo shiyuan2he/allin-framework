@@ -26,7 +26,8 @@ public interface IGoodsDao {
      * @copyright	此方法版权归本人所有，复制或者剪切请通知本人或者捐赠 通知方式：shiyuan4work@sina.com
      * @callnumber 15910868535
      */
-    List<Goods> selectList() ;
+    List<Goods> selectList(Integer currentPage,Integer pageSize) ;
+    List<Goods> selectList(Goods goods,Integer currentPage,Integer pageSize) ;
     /**
      * 
      * @description <p>通过id获取对象</p>

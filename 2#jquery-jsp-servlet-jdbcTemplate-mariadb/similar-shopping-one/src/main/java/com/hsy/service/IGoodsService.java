@@ -13,6 +13,5 @@ import java.util.List;
  * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
  */
 public interface IGoodsService {
-
-    List<Goods> selectGoodsListOfPage() ;
+    List<Goods> selectGoodsListOfPage(Integer currentPage,Integer pageSize) ;
 }

@@ -23,6 +23,15 @@ public class ResponseBean {
         this.data = data;
     }
 
+    public ResponseBean(String code, String msg, Object data, Integer currentPage, Integer pageSize, Long totalCount) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+        this.totalCount = totalCount;
+    }
+
     public String getCode() {
         return code;
     }
