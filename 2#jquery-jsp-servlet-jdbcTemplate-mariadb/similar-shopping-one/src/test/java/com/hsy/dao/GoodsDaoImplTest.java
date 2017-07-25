@@ -1,5 +1,6 @@
 package com.hsy.dao;
 
+import com.hsy.entity.Goods;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,9 @@ public class GoodsDaoImplTest {
     @Test
     public void testGetById(){
         System.out.println(goodsDao.getById(46550930).toString()) ;
+    }
+    @Test
+    public void testSave(){
+        goodsDao.save(new Goods("iphone",10000.00,100)) ;
     }
 }
