@@ -50,7 +50,7 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
             pstmt.setString(1, name);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                Long ids = rs.getLong("id");
+                int ids = rs.getInt("id");
                 String returnName = rs.getString(2);
                 String passWord = rs.getString(3);
                 Salesperson salesMan = new Salesperson(ids,returnName,passWord);
@@ -68,7 +68,7 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
         conn = DBUtils.getConnetction() ;
         switch (key) {
             case 1:		//	3.1 更改售货员姓名
-                String sqlName = "UPDATE SALESMAN SET SNAME=? WHERE SID=?";
+                String sqlName = "UPDATE t_salesperson SET NAME=? WHERE ID=?";
                 try {
                     pstmt = conn.prepareStatement(sqlName);
                     pstmt.setString(1, salesperson.getName());
@@ -132,7 +132,7 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
             pstmt = conn.prepareStatement(sql);
             rs =  pstmt.executeQuery();
             while (rs.next()) {
-                Long sId = rs.getLong(1);
+                int sId = rs.getInt(1);
                 String name = rs.getString(2);
                 String password = rs.getString(3);
                 Salesperson salesMan = new Salesperson(sId,name,password);
@@ -153,15 +153,14 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
     public List<Salesperson> checkstandLog(String sName){
         ArrayList<Salesperson> salesManInfo = new ArrayList<Salesperson>();
         conn = DBUtils.getConnetction();
-        String sql = "SELECT ID,PASSWORD FROM t_SALESMAN WHERE NAME=?";
+        String sql = "SELECT ID,PASSWORD FROM t_salesperson WHERE NAME=?";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1,sName);
-
             rs 	  = pstmt.executeQuery();
             while (rs.next()){
-                String sPassWord = rs.getString("spassword");
-                Long sId = rs.getLong("id");
+                String sPassWord = rs.getString("password");
+                int sId = rs.getInt("id");
                 Salesperson salesMan = new Salesperson(sId,sPassWord);
                 salesManInfo.add(salesMan);
             }
@@ -172,4 +171,6 @@ public class SalespersonDaoImpl extends BaseDaoImpl implements ISalespersonDao {
         }
         return salesManInfo;
     }
+
+
 }

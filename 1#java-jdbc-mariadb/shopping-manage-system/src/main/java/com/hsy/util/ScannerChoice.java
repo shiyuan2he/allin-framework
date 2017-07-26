@@ -20,7 +20,7 @@ public class ScannerChoice {
     /**
      * @return double 键盘获取商品价格,小数点后两位
      */
-    public static double ScannerInfo() {
+    public static double scannerInfo() {
         double num = 0.00;
         do {
             Scanner sc = new Scanner(System.in);
@@ -37,7 +37,6 @@ public class ScannerChoice {
         } while (true);
         return num;
     }
-
     /**
      * @return int 键盘获取商品数量
      */
@@ -63,7 +62,7 @@ public class ScannerChoice {
     /**
      * @return String 获取的键盘输入
      */
-    public static String ScannerInfoString() {
+    public static String scannerInfoString() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("请输入：");
         return scanner.next();
@@ -75,19 +74,18 @@ public class ScannerChoice {
      * 获取用户-添加完商品-下一步
      */
     public static void changedInfoNext(String oper) {
-        GoodsConsole goodsConsole = new GoodsConsole() ;
         do{
             System.out.println("是否继续进行-当前操作:(Y/N)");
-            String choice = ScannerChoice.ScannerInfoString();
+            String choice = ScannerChoice.scannerInfoString();
             //在JAVA中: Equals比较的是值,==比较的是地址
             if ("y".equals(choice) || "Y".equals(choice)) {
                 //下面的嵌套if-else 是让用户选择继续操作当前步骤所跳转到指定页面。（因为不同函数调用，跳转的指定函数不同）
                 if ("upateGoodsPage".equals(oper)) {
-                    goodsConsole.upateGoodsConsole();
+                    GoodsConsole.upateGoodsConsole();
                 }else if ("deleteGoodsPage".equals(oper)) {
-                    goodsConsole.deleteGoodsConsole();
+                    GoodsConsole.deleteGoodsConsole();
                 }else if ("addGoodsPage".equals(oper)) {
-                    goodsConsole.addGoodsConsole();
+                    GoodsConsole.addGoodsConsole();
                 }
                 //上面的嵌套结束
             }else if ("N".equals(choice) || "n".equals(choice)) {
@@ -106,7 +104,7 @@ public class ScannerChoice {
     public static void choiceSalesManNext(String oper) {
         do{
             System.out.println("是否继续进行-当前操作:(Y/N)");
-            String choice = ScannerChoice.ScannerInfoString();
+            String choice = ScannerChoice.scannerInfoString();
             if ( "y".equals(choice) || "Y".equals(choice) ){
                 //下面的嵌套if-else 是让用户选择继续操作当前步骤所跳转到指定页面。（因为不同函数调用，跳转的指定函数不同）
                 if ("updateSalesMan".equals(oper)) {

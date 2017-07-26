@@ -3,10 +3,11 @@ package com.hsy.dao.impl;
 import com.hsy.dao.IGoodsSalespersonDao;
 import com.hsy.entity.GoodsSalesperson;
 import com.hsy.util.DBUtils;
+import com.hsy.util.DateUtils;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Time;
+import java.util.*;
 
 /**
  * @author heshiyuan
@@ -19,53 +20,55 @@ import java.util.List;
  * @price ¥5    微信：hewei1109
  */
 public class GoodsSalespersonDaoImpl extends BaseDaoImpl implements IGoodsSalespersonDao {
-    /**
-     * 1.当天卖出的商品
-     *
-     * @return ArrayList<Gsales> 商品信息,包括 allSum (单种商品的销售总和)
-     */
-    public List<GoodsSalesperson> dailyGsales() {
-        List<GoodsSalesperson> GsalesList = new ArrayList<GoodsSalesperson>();
-        conn = DBUtils.getConnetction();
 
-        //售卖时间=当前时间 trunc(sdate) =trunc(sysdate) 单位：天
-        //sql语句解释见files/sql/java_sql.sql
-        String sql = "select gname,gprice,gnum, allSum from goods, (select gid as salesid,sum(snum) as allSum from gsales where trunc(sdate) =trunc(sysdate) group by gid) where gid = salesid";
+    public  List<Map<String,Object>> dailyGsales() {
+        List<Map<String,Object>> returnMapList = new ArrayList<>();
+        conn = DBUtils.getConnetction();
+        String sql = "SELECT" +
+                " gs.sales_time as salesTime," +
+                " gs.id as id," +
+                " g.`name` as goodsName," +
+                " s.`name` as salesName," +
+                " g.price as price," +
+                " gs.number as count," +
+                " g.price * g.number as total" +
+                " FROM" +
+                " t_r_goods_salesperson gs left join t_salesperson s on gs.salesperosn_id = s.id" +
+                " left join t_goods g on gs.goods_id = g.id" +
+                ";";
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                String gName = rs.getString(1);
-                double gPrice = rs.getDouble(2);
-                Long gNum = rs.getLong(3);
-                Long allSnum = rs.getLong("allSum");
-
-               /* GoodsSalesperson Gsales = new GoodsSalesperson(0l, 0l, gNum, allSnum);
-                GsalesList.add(Gsales);*/
+                Map<String,Object> returnMap = new HashMap<>() ;
+                returnMap.put("saleTime",rs.getTimestamp(1));
+                returnMap.put("id",rs.getInt(2));
+                returnMap.put("goodsName",rs.getString(3));
+                returnMap.put("salesName",rs.getString(4));
+                returnMap.put("price",rs.getDouble(5));
+                returnMap.put("count",rs.getInt(6));
+                returnMap.put("total",rs.getDouble(7));
+                returnMapList.add(returnMap) ;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             DBUtils.closeResource(pstmt, rs, conn);
         }
-        return GsalesList;
+        return returnMapList;
     }
-
-    /**
-     * 2.购物结算-向sales表中插入商品数据！
-     * @return boolean
-     */
     public boolean shoppingSettlement(GoodsSalesperson goodsSalesperson) {
         boolean bool = false;
         conn = DBUtils.getConnetction();
-        String sql = "INSERT INTO GSALES(GID,SID,SNUM) VALUES(?,?,?)";
+        String sql = "INSERT INTO t_r_goods_salesperson(id,salesperosn_id,goods_id,NUMBER,sales_time) VALUES(?,?,?,?,?)";
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, goodsSalesperson.getId());
-            pstmt.setLong(2, goodsSalesperson.getSalespersonId());
-            pstmt.setLong(3, goodsSalesperson.getGoodsId());
-
+            pstmt.setInt(1, goodsSalesperson.getId());
+            pstmt.setInt(2, goodsSalesperson.getSalespersonId());
+            pstmt.setInt(3, goodsSalesperson.getGoodsId());
+            pstmt.setInt(4, goodsSalesperson.getNumber());
+            pstmt.setTimestamp(5, DateUtils.getCurrentTimestamp());
             int rs = pstmt.executeUpdate();
             if (rs > 0) {
                 bool = true;

@@ -18,10 +18,10 @@ public interface IGoodsDao {
 
     boolean addGoods(Goods goods) ;
     boolean updateGoods(int key,Goods goods);
-    boolean deleteGoods(Long gid);
+    boolean deleteGoods(int gid);
     List<Goods> queryGoods(int key);
     List<Goods> displayGoods();
-    Long query(String oper);
-    Long querySettlement() ;
+    int query(String oper);
+    int querySettlement() ;
     List<Goods> queryGoodsKey(int gId,String gName) ;
 }

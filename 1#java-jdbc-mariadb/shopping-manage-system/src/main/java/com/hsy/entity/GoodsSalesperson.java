@@ -1,5 +1,5 @@
 package com.hsy.entity;
-
+import java.util.Date;
 /**
  * @author heshiyuan
  * @description <p></p>
@@ -11,53 +11,55 @@ package com.hsy.entity;
  * @price ¥5    微信：hewei1109
  */
 public class GoodsSalesperson {
-    private Long id ;
-    private Long goodsId ;
-    private Long salespersonId ;
+    private Integer id ;
+    private Integer goodsId ;
+    private Integer salespersonId ;
     private Integer number ;
+    private Date salesTime ;
 
     public GoodsSalesperson() {}
 
-    public GoodsSalesperson(Long id, Long goodsId, Long salespersonId) {
+    public GoodsSalesperson(Integer id, Integer goodsId, Integer salespersonId) {
         this.id = id;
         this.goodsId = goodsId;
         this.salespersonId = salespersonId;
     }
-
-    public GoodsSalesperson(Long id, Long salespersonId, Integer number) {
-        this.id = id;
-        this.salespersonId = salespersonId;
-        this.number = number;
-    }
-
-    public GoodsSalesperson(Long id, Long goodsId, Long salespersonId, Integer number) {
+    public GoodsSalesperson(Integer id, Integer goodsId, Integer salespersonId, Integer number) {
         this.id = id;
         this.goodsId = goodsId;
         this.salespersonId = salespersonId;
         this.number = number;
     }
 
-    public Long getId() {
+    public GoodsSalesperson(Integer id, Integer goodsId, Integer salespersonId, Integer number, Date salesTime) {
+        this.id = id;
+        this.goodsId = goodsId;
+        this.salespersonId = salespersonId;
+        this.number = number;
+        this.salesTime = salesTime;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getGoodsId() {
+    public int getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Long goodsId) {
+    public void setGoodsId(int goodsId) {
         this.goodsId = goodsId;
     }
 
-    public Long getSalespersonId() {
+    public Integer getSalespersonId() {
         return salespersonId;
     }
 
-    public void setSalespersonId(Long salespersonId) {
+    public void setSalespersonId(Integer salespersonId) {
         this.salespersonId = salespersonId;
     }
 
@@ -67,5 +69,17 @@ public class GoodsSalesperson {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public Date getSalesTime() {
+        return salesTime;
+    }
+
+    public void setSalesTime(Date salesTime) {
+        this.salesTime = salesTime;
     }
 }

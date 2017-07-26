@@ -1,19 +1,19 @@
 package com.hsy.console;
-
 import com.hsy.dao.IGoodsDao;
+import com.hsy.dao.IGoodsSalespersonDao;
 import com.hsy.dao.ISalespersonDao;
 import com.hsy.dao.impl.GoodsDaoImpl;
+import com.hsy.dao.impl.GoodsSalespersonDaoImpl;
 import com.hsy.dao.impl.SalespersonDaoImpl;
 import com.hsy.entity.Goods;
 import com.hsy.entity.GoodsSalesperson;
 import com.hsy.entity.Salesperson;
 import com.hsy.util.Algorithm;
-
+import com.hsy.util.MathUtils;
+import com.hsy.util.ScannerChoice;
 import java.util.List;
-
-import static com.hsy.util.ScannerChoice.ScannerInfo;
-import static com.hsy.util.ScannerChoice.ScannerInfoString;
 import static com.hsy.util.ScannerChoice.ScannerNum;
+import static com.hsy.util.ScannerChoice.scannerInfoString;
 
 /**
  * @author heshiyuan
@@ -28,13 +28,17 @@ import static com.hsy.util.ScannerChoice.ScannerNum;
 public class MainConsole {
     /**
      * 入口
+     * @description <p>入口</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:13
      */
     public static void main(String[] args) {
         MainConsole.mianConsole();
     }
-
     /**
-     * 主界面 已实现！已校验！
+     * @description <p>主界面 已实现！已校验！</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:11
      */
     public static void mianConsole() {
         System.out.println("***************************\n");
@@ -42,10 +46,10 @@ public class MainConsole {
         System.out.println("\t 2.前台收银\n");
         System.out.println("\t 3.商品管理\n");
         System.out.println("***************************");
-
+        MainConsole mainConsole = new MainConsole();
         System.out.println("\n请输入选项,或者按0退出.");
         do {
-            String choice = ScannerInfoString();
+            String choice = scannerInfoString();
             String regex = "[0-3]";//正则表达式
             if (choice.matches(regex)) {
                 int info = Integer.parseInt(choice);
@@ -56,13 +60,13 @@ public class MainConsole {
                         System.exit(1);//退出程序，返回值随便设置
                         break;
                     case 1:
-                        CommodityMaintenanceConsole();
+                        mainConsole.CommodityMaintenanceConsole();
                         break;
                     case 2:
-                        checkstandLogConsole();
+                        mainConsole.checkstandLogConsole();
                         break;
                     case 3:
-                        commodityManagementConsole();
+                        mainConsole.commodityManagementConsole();
                         break;
                     default:
                         break;
@@ -72,9 +76,10 @@ public class MainConsole {
             System.out.println("重新选择或者按0退出.");
         } while (true);
     }
-
     /**
-     * 1.商品维护界面
+     * @description <p>商品维护界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:11
      */
     public static void CommodityMaintenanceConsole() {
         GoodsConsole goodsConsole = new GoodsConsole();
@@ -87,13 +92,13 @@ public class MainConsole {
         System.out.println("***************************");
         System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
         do {
-            String choice = ScannerInfoString();
+            String choice = scannerInfoString();
             String regex = "[0-5]";
             if (choice.matches(regex)) {
                 int info = Integer.parseInt(choice);
                 switch (info) {
                     case 0:
-                        mianPage();
+                        mianConsole();
                         break;
                     case 1:
                         goodsConsole.addGoodsConsole();
@@ -118,9 +123,10 @@ public class MainConsole {
             System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
     }
-
     /**
-     * 2.前台收银登陆界面
+     * @description <p>前台收银登陆界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:11
      */
     public static void checkstandLogConsole() {
         System.out.println("\n*******欢迎使用商超购物管理系统*******\n");
@@ -131,7 +137,7 @@ public class MainConsole {
         ISalespersonDao salespersonDao = new SalespersonDaoImpl();
 
         do {
-            String choice = ScannerInfoString();
+            String choice = scannerInfoString();
             String regex = "[0-2]";
             if (choice.matches(regex)) {
                 int info = Integer.parseInt(choice);
@@ -144,9 +150,9 @@ public class MainConsole {
                         while (loginTimes != 0) {
                             loginTimes--;
                             System.out.println("---用户名---");
-                            String sName = ScannerInfoString();
+                            String sName = scannerInfoString();
                             System.out.println("---密码---");
-                            String sPssWord = ScannerInfoString();
+                            String sPssWord = scannerInfoString();
 
                             List<Salesperson> salesManInfo = salespersonDao.checkstandLog(sName); //以用户名从数据库中获取用户密码.
                             //没有此用户的情况！
@@ -158,7 +164,7 @@ public class MainConsole {
                                 //验证密码，登陆成功了！！
                                 if (sPssWord.equals(salesperson.getPassword())){
                                     System.out.println("\t  ---账户成功登陆---");
-                                    shoppingSettlementPage(salesperson.getId());//参数为营业员编号sId
+                                    shoppingSettlementConsole(salesperson.getId());//参数为营业员编号sId
                                 } else {
                                     System.err.println("\t!!密码错误!!\n");
                                     System.out.println("\n剩余登陆次数：" + loginTimes);
@@ -183,9 +189,10 @@ public class MainConsole {
             System.out.println("重新输入或按 0 返回上一级菜单");
         } while (true);
     }
-
     /**
-     * 3.商品管理控制台
+     * @description <p>商品管理控制台</p>
+     * @author heshiyuan 
+     * @date 2017/7/20 11:11
      */
     public static void commodityManagementConsole() {
         System.out.println("***************************\n");
@@ -196,7 +203,7 @@ public class MainConsole {
         System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
         GoodsSalespersonConsole goodsSalespersonConsole = new GoodsSalespersonConsole() ;
         do {
-            String choice = ScannerInfoString();
+            String choice = scannerInfoString();
             String regex = "[0-2]";
             if (choice.matches(regex)) {
                 int info = Integer.parseInt(choice);
@@ -218,27 +225,35 @@ public class MainConsole {
             System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
     }
-
     /**
-     * 购物结算界面
+     *
+     * @description <p>购物结算界面</p>
+     * 方法名:shoppingSettlementConsole
+     * 类名:MainConsole
+     * @author heshiyuan
+     * @email shiyuan4work@sina.com
+     * @date 2017/7/20 11:02
+     * @price ￥:5毛
+     * @copyright	此方法版权归本人所有，复制或者剪切请通知本人或者捐赠 通知方式：shiyuan4work@sina.com
+     * @callnumber 15910868535
      */
-    public static void shoppingSettlementPage(Long salesManSid) {
+    public static void shoppingSettlementConsole(Integer salesManSid) {
         IGoodsDao goodsDao = new GoodsDaoImpl();
+        IGoodsSalespersonDao goodsSalespersonDao = new GoodsSalespersonDaoImpl();
         System.out.println("\n\t*******购物结算*******\n");
         do {
             System.out.println("按 S 开始购物结算.按 0 返回账户登录界面");
-            String choNext = ScannerInfoString();
+            String choNext = scannerInfoString();
             if ("0".equals(choNext)) {
                 checkstandLogConsole();
-
             } else if ("s".equals(choNext) || "S".equals(choNext)) {
                 System.out.println("\n--请输入商品关键字--");
-                Long gid = goodsDao.querySettlement();//当商品件数有且只有一件时返回商品gid号，商品已售空时返回 -1. >1件时返回-2 . 查无此商品时返回-3
+                int gid = goodsDao.querySettlement();//当商品件数有且只有一件时返回商品gid号，商品已售空时返回 -1. >1件时返回-2 . 查无此商品时返回-3
                 switch (gid) {
-                    case -3l:
+                    case -3:
                         //无此商品,重新循环
                         break;
-                    case -1l:
+                    case -1:
                         System.err.println("\t--抱歉，该商品已售空--");
                         break;
                     default:
@@ -251,7 +266,7 @@ public class MainConsole {
                         } else {
                             Goods goods = goodsList.get(0);
                             int gNum = goods.getNumber();
-                            double gPrice = goods.getGprice();
+                            double gPrice = goods.getPrice();
                             System.out.println("--请输入购买数量--");
                             do {
                                 int choicegoodsNum = ScannerNum();//获取用户要购买的数量
@@ -259,35 +274,33 @@ public class MainConsole {
                                     System.err.println("\t！！仓库储备不足！！");
                                     System.out.println("--请重新输入购买数量--");
                                 } else {
-                                    double allPrice = Arith.mul(choicegoodsNum, gPrice);//利用BigDecimal作乘法运算
-                                    System.out.println("\t\t\t  购物车结算\n");
-                                    System.out.println("\t\t商品名称\t商品单价\t购买数量\t总价\n");
-                                    System.out.println("\t\t" + goods.getName() + "\t" + gPrice + " $\t" + choicegoodsNum + "\t" + allPrice + " $\n");
+                                    double allPrice = Algorithm.mul(choicegoodsNum, gPrice);//利用BigDecimal作乘法运算
+                                    System.out.println("\t\t\t\t\t购物车结算");
+                                    System.out.println("\t\t商品名称\t商品单价\t购买数量\t总价");
+                                    System.out.println("\t\t" + goods.getName() + "\t\t$" + gPrice + " \t" + choicegoodsNum + "\t\t\t$" + allPrice + " \n");
 
                                     do {
                                         System.out.println("确认购买：Y/N");
-                                        String choShopping = ScannerInfoString();
+                                        String choShopping = scannerInfoString();
                                         if ("y".equals(choShopping) || "Y".equals(choShopping)) {
                                             System.out.println("\n总价：" + allPrice + " $");
                                             System.out.println("\n实际缴费金额");
                                             do {
-                                                double amount = ScannerInfo();
+                                                double amount = ScannerChoice.scannerInfo();
                                                 double balance = Algorithm.sub(amount, allPrice);  //用户交钱与购买物品总价间的差额
                                                 if (balance < 0) {
                                                     System.err.println("\t！！缴纳金额不足！！");
                                                     System.out.println("\n请重新输入缴纳金额($)");
                                                 } else {
-                                                    /*	这里是购物结算操作数据库！！！！！！----------------------	  1.更改goods表数量
-                                                    2. 增加sales表数量 原商品数量gNum。结算员Id salesManSid */
-
+                                                    /*	这里是购物结算操作数据库！！！！！！----------------------	  1.更改t_goods表数量*/
                                                     //对sales表操作
-                                                    GoodsSalesperson gSales = new GoodsSalesperson(goods.getId(), salesManSid, choicegoodsNum);
-                                                    boolean insert = new GsalesDao().shoppingSettlement(gSales);
-
+                                                    GoodsSalesperson gSales = new GoodsSalesperson(MathUtils.generateRandomByLength(8),goods.getId(),
+                                                            salesManSid, choicegoodsNum, null);
+                                                    boolean insert = goodsSalespersonDao.shoppingSettlement(gSales);
                                                     //对goods表操作
                                                     int goodsNewNum = gNum - choicegoodsNum; //现在goods表中该商品数量
-                                                    Goods newGoods = new Goods(goods.getGid(), goodsNewNum);
-                                                    boolean update = new GoodsDao().updateGoods(3, newGoods);
+                                                    Goods newGoods = new Goods(goods.getId(), goodsNewNum);
+                                                    boolean update = goodsDao.updateGoods(3, newGoods);
 
                                                     if (update && insert) {
                                                         System.out.println("找零：" + balance);
@@ -295,13 +308,12 @@ public class MainConsole {
                                                     } else {
                                                         System.err.println("！支付失败！"); //出现这个错误一定是数据库操作有问题！
                                                     }
-                                                    shoppingSettlementPage(salesManSid);//最后跳转到到购物结算页面
+                                                    shoppingSettlementConsole(salesManSid);//最后跳转到到购物结算页面
                                                     //	结束购物结算操作数据库！！！！！！-----------------------------------
                                                 }
                                             } while (true);
-
                                         } else if ("N".equals(choShopping) || "n".equals(choShopping)) {
-                                            shoppingSettlementPage(salesManSid);
+                                            shoppingSettlementConsole(salesManSid);
                                         }
                                         System.err.println("\t！！请确认购物意向！！");
                                     } while (true);
@@ -315,12 +327,12 @@ public class MainConsole {
             }
         } while (true);
     }
-
     /**
-     * 售货员管理界面
+     * @description <p>售货员管理界面</p>
+     * @author heshiyuan
+     * @date 2017/7/20 11:07
      */
     public static void salespersonManagementConsole() {
-
         System.out.println("***************************\n");
         System.out.println("\t 1.添加售货员\n");
         System.out.println("\t 2.更改售货员\n");
@@ -329,8 +341,9 @@ public class MainConsole {
         System.out.println("\t 5.显示所有售货员\n");
         System.out.println("***************************");
         System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
+        SalespersonConsole salespersonConsole = new SalespersonConsole();
         do {
-            String choice = ScannerInfoString();
+            String choice = scannerInfoString();
             String regex = "[0-5]";
             if (choice.matches(regex)) {
                 int info = Integer.parseInt(choice);
@@ -339,19 +352,19 @@ public class MainConsole {
                         commodityManagementConsole();
                         break;
                     case 1:
-                        SalespersonConsole.addSalespersonConsole();
+                        salespersonConsole.addSalespersonConsole();
                         break;
                     case 2:
-                        SalespersonConsole.updateSalespersonConsole();
+                        salespersonConsole.updateSalespersonConsole();
                         break;
                     case 3:
-                        SalespersonConsole.deleteSalespersonConsole();
+                        salespersonConsole.deleteSalespersonConsole();
                         break;
                     case 4:
-                        SalespersonConsole.querySalespersonConsole();
+                        salespersonConsole.querySalespersonConsole();
                         break;
                     case 5:
-                        SalespersonConsole.displaySalespersonConsole();
+                        salespersonConsole.displaySalespersonConsole();
                         break;
                     default:
                         break;
@@ -361,5 +374,4 @@ public class MainConsole {
             System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
     }
-
 }
