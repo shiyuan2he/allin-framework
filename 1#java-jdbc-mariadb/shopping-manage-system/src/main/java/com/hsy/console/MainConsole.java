@@ -9,7 +9,6 @@ import com.hsy.entity.GoodsSalesperson;
 import com.hsy.entity.Salesperson;
 import com.hsy.util.Algorithm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.hsy.util.ScannerChoice.ScannerInfo;
@@ -28,7 +27,7 @@ import static com.hsy.util.ScannerChoice.ScannerNum;
  */
 public class MainConsole {
     /**
-     * 入口函数
+     * 入口
      */
     public static void main(String[] args) {
         MainConsole.mianConsole();
