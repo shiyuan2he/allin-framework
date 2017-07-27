@@ -7,6 +7,7 @@ import com.hsy.util.DateUtils;
 import com.hsy.util.MathUtils;
 import org.springframework.jdbc.core.*;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,15 +50,19 @@ public class GoodsDaoImpl extends BaseDaoImpl<Goods> implements IGoodsDao {
 
     @Override
     public boolean saveOtherWay(Goods goods) {
-        final String sql = "insert into t_goods values(?,?,?,?)";
+        final String sql = "insert into t_goods(id,name,price,number,state," +
+                "create_time,create_user) values(?,?,?,?,?,?,?)";
         int count = jdbcTemplate.update(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement ps=con.prepareStatement(sql);
-                /*ps.setInt(0, MathUtils.generateRandomByLength(8));
-                ps.setString(1, goods.getName());
-                ps.setDouble(2, goods.getPrice());
-                ps.setInt(3, goods.getNumber());*/
+                ps.setInt(1, MathUtils.generateRandomByLength(8));
+                ps.setString(2, goods.getName());
+                ps.setDouble(3, goods.getPrice());
+                ps.setInt(4, goods.getNumber());
+                ps.setInt(5,0);// 默认状态
+                ps.setTimestamp(6, DateUtils.getCurrentTimestamp());
+                ps.setInt(7,49972586);
                 return ps;
             }
         });
@@ -69,19 +74,37 @@ public class GoodsDaoImpl extends BaseDaoImpl<Goods> implements IGoodsDao {
 
     @Override
     public Integer batchSave(List<Goods> list) {
-        return null;
+        Integer count = 0 ;
+        for(Goods goods : list){
+            if(save(goods)){
+                count ++ ;
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        Assert.isNull(id,"id can not be null!");
+        // 定义返回结果
+        boolean flag = false;
+        /* 插入实现 */
+        int i = jdbcTemplate.update("delete from t_goods where id=? ", new Object[] { id });
+        if (i > 0) {
+            flag = true;
+        }
+        return flag;
     }
 
     @Override
     public boolean delete(Goods goods) {
-        return false;
+        return deleteById(goods.getId());
     }
 
     @Override
     public Integer batchDelete(List<Goods> list) {
         return null;
     }
-
     @Override
     public boolean update(Goods goods) {
         return false;

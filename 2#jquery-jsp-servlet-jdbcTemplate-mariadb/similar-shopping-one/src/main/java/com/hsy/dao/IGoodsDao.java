@@ -16,10 +16,12 @@ public interface IGoodsDao {
     boolean save(Goods goods) ;
     boolean saveOtherWay(Goods goods) ;
     Integer batchSave(List<Goods> list) ;
+    boolean deleteById(Integer id);
     boolean delete(Goods goods);
     Integer batchDelete(List<Goods> list) ;
     boolean update(Goods goods);
     Integer batchUpdate(List<Goods> list) ;
+    Goods selectById(Integer id) ;
     /**
      * 
      * @description <p>获取商品列表</p>

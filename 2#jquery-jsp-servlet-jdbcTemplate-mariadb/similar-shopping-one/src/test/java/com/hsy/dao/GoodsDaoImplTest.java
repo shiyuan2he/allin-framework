@@ -32,4 +32,8 @@ public class GoodsDaoImplTest {
     public void testSave(){
         goodsDao.save(new Goods("iphone",10000.00,100)) ;
     }
+    @Test
+    public void testSaveOtherWay(){
+        goodsDao.saveOtherWay(new Goods("iphone",10000.00,100)) ;
+    }
 }
