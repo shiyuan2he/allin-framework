@@ -1,5 +1,7 @@
 package com.hsy.entity;
 
+import java.util.Date;
+
 /**
  * @author heshiyuan
  * @description <p></p>
@@ -15,6 +17,13 @@ public class Goods {
     private String name ;
     private Double price ;
     private Integer number ;
+    private Date groundingTime ;//上架时间
+    private Date undercarriageTime ;//下架时间
+    private Integer state ;// 0-初始状态 1-上架 2-下架
+    private Date createTime ;
+    private Date createUser ;
+    private Date updateTime ;
+    private Date updateUser ;
 
     public Goods() {}
 
@@ -75,6 +84,62 @@ public class Goods {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Date getGroundingTime() {
+        return groundingTime;
+    }
+
+    public void setGroundingTime(Date groundingTime) {
+        this.groundingTime = groundingTime;
+    }
+
+    public Date getUndercarriageTime() {
+        return undercarriageTime;
+    }
+
+    public void setUndercarriageTime(Date undercarriageTime) {
+        this.undercarriageTime = undercarriageTime;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Date createUser) {
+        this.createUser = createUser;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Date getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(Date updateUser) {
+        this.updateUser = updateUser;
     }
 
     @Override
