@@ -8,18 +8,19 @@ import com.hsy.service.IGoodsService;
 import com.hsy.util.Constant;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -54,6 +55,7 @@ public class BusinessServlet extends HttpServlet {
         ServletContext servletContext = this.getServletContext();
         WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
         goodsService = (IGoodsService) wac.getBean("goodsService");
+        Enumeration<String> parameterNames = request.getParameterNames();
         String businessType = request.getParameter("businessType") ;
         if(StringUtils.equalsIgnoreCase(businessType,"goodsList")){
             String currentPage = request.getParameter("currentPage") ;
@@ -74,6 +76,9 @@ public class BusinessServlet extends HttpServlet {
             writeJson(request,response,new ResponseBean("0000","success",
                     goodsList,Integer.parseInt(currentPage),Integer.parseInt(pageSize),
                     countAll));
+        }else if("add".equals(businessType)){
+            String currentPage = request.getParameter("name") ;
+            //doAddGoods() ;
         }
     }
     private void writeJson(HttpServletRequest request, HttpServletResponse response,Object obj) {
@@ -89,4 +94,32 @@ public class BusinessServlet extends HttpServlet {
         out.close();
     }
 
+    public static String getBodyString(ServletRequest request) {
+        StringBuilder sb = new StringBuilder();
+        InputStream inputStream = null;
+        BufferedReader reader = null;
+        try {
+            inputStream = request.getInputStream();
+            reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                }
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+        return sb.toString();
+    }
 }

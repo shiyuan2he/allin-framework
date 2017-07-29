@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : 192.168.6.101
 Source Server Version : 50546
 Source Host           : 192.168.6.101:3306
-Source Database       : test_shopping
+Source Database       : similar_shopping_one
 
 Target Server Type    : MYSQL
 Target Server Version : 50546
 File Encoding         : 65001
 
-Date: 2017-07-20 20:27:21
+Date: 2017-07-25 20:46:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,15 +24,23 @@ CREATE TABLE `t_goods` (
   `name` varchar(20) NOT NULL DEFAULT '' COMMENT '商品名称',
   `price` double(10,0) DEFAULT NULL COMMENT '价钱',
   `number` int(11) DEFAULT NULL COMMENT '数量',
+  `grounding_time` datetime DEFAULT NULL,
+  `undercarriage_time` datetime DEFAULT NULL,
+  `state` int(1) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `create_user` bigint(20) NOT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `update_user` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_goods
 -- ----------------------------
-INSERT INTO `t_goods` VALUES ('46550930', 'iphone6', '4444', '8');
-INSERT INTO `t_goods` VALUES ('71776349', 'iphone7', '22222', '20');
-INSERT INTO `t_goods` VALUES ('84700252', 'iphone7', '2222', '27');
+INSERT INTO `t_goods` VALUES ('46550930', 'iphone6', '4444', '8', null, null, '0', '0000-00-00 00:00:00', '0', null, null);
+INSERT INTO `t_goods` VALUES ('71776349', 'iphone7', '22222', '20', null, null, '0', '0000-00-00 00:00:00', '0', null, null);
+INSERT INTO `t_goods` VALUES ('84700252', 'iphone7', '2222', '27', null, null, '0', '0000-00-00 00:00:00', '0', null, null);
+INSERT INTO `t_goods` VALUES ('87303738', 'iphone', '10000', '100', null, null, '0', '2017-07-25 09:18:37', '49972586', null, null);
 
 -- ----------------------------
 -- Table structure for t_r_goods_salesperson

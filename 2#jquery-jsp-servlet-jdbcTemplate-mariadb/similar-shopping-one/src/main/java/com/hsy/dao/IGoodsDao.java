@@ -13,6 +13,15 @@ import java.util.List;
  * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
  */
 public interface IGoodsDao {
+    boolean save(Goods goods) ;
+    boolean saveOtherWay(Goods goods) ;
+    Integer batchSave(List<Goods> list) ;
+    boolean deleteById(Integer id);
+    boolean delete(Goods goods);
+    Integer batchDelete(List<Goods> list) ;
+    boolean update(Goods goods);
+    Integer batchUpdate(List<Goods> list) ;
+    Goods selectById(Integer id) ;
     /**
      * 
      * @description <p>获取商品列表</p>
@@ -27,7 +36,6 @@ public interface IGoodsDao {
      * @callnumber 15910868535
      */
     List<Goods> selectList(Integer currentPage,Integer pageSize) ;
-    List<Goods> selectList(Goods goods,Integer currentPage,Integer pageSize) ;
     /**
      * 
      * @description <p>通过id获取对象</p>
