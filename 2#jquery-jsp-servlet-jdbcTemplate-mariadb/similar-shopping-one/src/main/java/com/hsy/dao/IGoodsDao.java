@@ -36,7 +36,6 @@ public interface IGoodsDao {
      * @callnumber 15910868535
      */
     List<Goods> selectList(Integer currentPage,Integer pageSize) ;
-    List<Goods> selectList(Goods goods,Integer currentPage,Integer pageSize) ;
     /**
      * 
      * @description <p>通过id获取对象</p>

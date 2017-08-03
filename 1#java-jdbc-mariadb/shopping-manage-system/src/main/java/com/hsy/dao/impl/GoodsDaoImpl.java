@@ -61,7 +61,7 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
         boolean bool = false;
         conn = DBUtils.getConnetction();
         switch (key) {
-            case 1:        //	key=1,更改商品名称
+            case 1:
                 String sqlName = "UPDATE t_goods SET NAME=? WHERE ID=?";
                 try {
                     pstmt = conn.prepareStatement(sqlName);
