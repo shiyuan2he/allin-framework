@@ -1,9 +1,7 @@
 package com.hsy.servlet;
 
+import com.alibaba.druid.util.HttpClientUtils;
 import com.alibaba.fastjson.JSON;
-import com.hsy.utils.HttpClientUtils;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.junit.Test;
 
 import java.util.HashMap;

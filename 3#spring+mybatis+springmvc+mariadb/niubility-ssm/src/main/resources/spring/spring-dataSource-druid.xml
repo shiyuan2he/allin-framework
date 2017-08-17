@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+    ">
+    <!--配置整合mybatis过程-->
+
+    <!--1、配置数据库相关参数-->
+    <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
+
+    <!--2.数据源druid -->
+    <!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+           init-method="init" destroy-method="close">
+         <property name="driverClassName" value="${jdbc.driverClassName}"/>
+         <property name="url" value="${jdbc.url}"/>
+         <property name="username" value="${jdbc.username}" />
+         <property name="password" value="${jdbc.password}" />
+
+         &lt;!&ndash; 配置初始化大小、最小、最大 &ndash;&gt;
+         <property name="initialSize" value="${druid.pool.size.init}" />
+         <property name="minIdle" value="${druid.pool.size.min}" />
+         <property name="maxActive" value="${druid.pool.size.max}" />
+
+         &lt;!&ndash; 配置监控统计拦截的filters，wall用于防止sql注入，stat用于统计分析 &ndash;&gt;
+         <property name="filters" value="wall,stat" />
+     </bean>-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${db.druid.url}"/>
+        <property name="username" value="${db.druid.username}"/>
+        <property name="password" value="${db.druid.password}"/>
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${db.druid.initialSize}"/>
+        <property name="minIdle" value="${db.druid.minIdle}"/>
+        <property name="maxActive" value="${db.druid.maxActive}"/>
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${db.druid.maxWait}"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${db.druid.timeBetweenEvictionRunsMillis}"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${db.druid.minEvictableIdleTimeMillis}"/>
+        <!-- 用来检测连接是否有效的SQL，要求是一个查询语句 -->
+        <property name="validationQuery" value="${db.druid.validationQuery}"/>
+        <!-- 申请连接的时候检测 -->
+        <property name="testWhileIdle" value="${db.druid.testWhileIdle}"/>
+        <!-- 申请连接时执行validationQuery是否有效，配置为true时会降低性能 -->
+        <property name="testOnBorrow" value="${db.druid.testOnBorrow}"/>
+        <!-- 归还连接时执行validationQuery是否有效，配置为true时会降低性能 -->
+        <property name="testOnReturn" value="${db.druid.testOnReturn}"/>
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <!--<property name="poolPreparedStatements" value="${db.druid.poolPreparedStatements}" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${db.druid.maxPoolPreparedStatementPerConnectionSize}" />-->
+        <!--
+            配置监控统计拦截的filters
+            常用的filter：
+                监控统计用的：filter：stat
+                日志用的：filter:log4g
+                预防SQL注入的filter：wall
+        -->
+        <!--<property name="filters" value="${db.druid.filters}" />-->
+    </bean>
+</beans>
