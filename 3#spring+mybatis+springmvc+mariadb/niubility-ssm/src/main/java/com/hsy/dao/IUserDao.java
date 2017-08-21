@@ -29,7 +29,7 @@ public interface IUserDao {
      * @github https://github.com/shiyuan2he.git
      * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
      */
-    List<User> getAllUsers(Integer beginIndex,Integer querySize);
+    List<User> getAllUsers(@Param("beginIndex")Integer beginIndex,@Param("querySize")Integer querySize);
     /**
      * @description <p>根据主键获取对象</p>
      * @param

@@ -58,7 +58,7 @@ public class BusinessUtils {
     public static boolean validateParamForRegister(User user){
         if(StringUtils.isNotBlank(user.getName())
                 && StringUtils.isNotBlank(user.getPassword())
-                && 0 != user.getSex()
+                && StringUtils.isNotBlank(user.getSex())
                 && null != user.getTel()){
             return true ;
         }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author heshiyuan
@@ -45,7 +46,7 @@ public class UserController extends BaseController{
         if(BusinessUtils.validateParamForRegister(user)){
             boolean flag = userService.register(user.getName(),user.getPassword(),user.getTel(),user.getSex());
             if(flag){
-                return super.sussess() ;
+                return super.success() ;
             }
         }
         _logger.info("退出 /user/register.do ...");
@@ -59,9 +60,19 @@ public class UserController extends BaseController{
         //User user = BusinessUtils.requestJsonToBean(json,User.class) ;
         boolean flag = userService.login(user.getTel(),user.getPassword());
         if(flag){
-            return super.sussess() ;
+            return super.success() ;
         }
         _logger.info("退出 /user/login.do ...");
         return super.failure() ;
+    }
+    @RequestMapping("/list.do")
+    public @ResponseBody ResponseBodyBean<Object> list(@RequestBody String json, HttpSession session){
+        _logger.info("进入 /user/list.do ...");
+        List<User> list = userService.getUserList(1,5);
+        if(list.size()>0){
+            return super.success(list) ;
+        }
+        _logger.info("退出 /user/list.do ...");
+        return super.failure("没有查询到数据") ;
     }
 }

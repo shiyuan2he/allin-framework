@@ -41,6 +41,19 @@ public class BaseController {
         return new ResponseBodyBean<>(false, code,errorInfo) ;
     }
     /**
+     * @description <p>定制失败返回</p>
+     * @param
+     * @return No such property: code for class: Script1
+     * @author heshiyuan
+     * @date 18/08/2017 11:13 AM
+     * @email shiyuan4work@sina.com
+     * @github https://github.com/shiyuan2he.git
+     * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
+     */
+    protected ResponseBodyBean<Object> failure(String errorInfo){
+        return new ResponseBodyBean<>(false, Constants.commonFailureCode,errorInfo) ;
+    }
+    /**
      * @description <p>通用失败返回</p>
      * @param
      * @return No such property: code for class: Script1
@@ -50,7 +63,7 @@ public class BaseController {
      * @github https://github.com/shiyuan2he.git
      * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
      */
-    protected ResponseBodyBean<Object> sussess(){
+    protected ResponseBodyBean<Object> success(){
         return new ResponseBodyBean<>(true,Constants.commonSuccessCode, Constants.commonSuccess) ;
     }
     /**

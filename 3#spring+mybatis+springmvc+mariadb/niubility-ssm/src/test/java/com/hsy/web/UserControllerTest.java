@@ -3,6 +3,7 @@ package com.hsy.web;
 import com.hsy.JUnit4ControllerBase;
 import com.hsy.bean.entity.User;
 import com.hsy.dto.RequestBodyBean;
+import com.hsy.javase.utils.MathHelper;
 import com.hsy.utils.BusinessUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -25,9 +26,9 @@ public class UserControllerTest extends JUnit4ControllerBase {
         RequestBodyBean<User> requestJson = new RequestBodyBean<>() ;
         User user = new User() ;
         user.setName("何大大一");
-        user.setPassword("123456");
-        user.setSex((char) 1);
-        user.setTel(15910868635l);
+        user.setPassword("aa1234");
+        user.setSex("1");
+        user.setTel(MathHelper.generateRandomOfLongByLength(11));
         requestJson.setUser(user);
         String requestJsonStr = BusinessUtils.requestBeanToJson(requestJson) ;
         _logger.info("请求json串：{}",requestJsonStr);
@@ -38,10 +39,17 @@ public class UserControllerTest extends JUnit4ControllerBase {
         RequestBodyBean<User> requestJson = new RequestBodyBean<>() ;
         User user = new User() ;
         user.setPassword("123456");
-        user.setTel(15910868635l);
+        user.setTel(70083251205l);
         requestJson.setUser(user);
         String requestJsonStr = BusinessUtils.requestBeanToJson(requestJson) ;
         _logger.info("请求json串：{}",requestJsonStr);
         this.postJsonRequest("/user/login.do",requestJsonStr);
+    }
+    @Test
+    public void testList(){
+        RequestBodyBean<User> requestJson = new RequestBodyBean<>() ;
+        String requestJsonStr = BusinessUtils.requestBeanToJson(requestJson) ;
+        _logger.info("请求json串：{}",requestJsonStr);
+        this.postJsonRequest("/user/list.do",requestJsonStr);
     }
 }

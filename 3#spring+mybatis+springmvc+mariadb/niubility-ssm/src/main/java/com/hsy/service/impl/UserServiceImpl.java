@@ -2,13 +2,15 @@ package com.hsy.service.impl;
 
 import com.hsy.bean.entity.User;
 import com.hsy.dao.IUserDao;
+import com.hsy.javase.secure.Base64Helper;
 import com.hsy.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.hsy.cache.RedisCache ;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author heshiyuan
@@ -25,12 +27,13 @@ public class UserServiceImpl implements IUserService{
     private final static Logger _logger = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     IUserDao iUserDao ;
-    @Override
-    public boolean register(String name, String password, Long tel, char sex) {
+    @Autowired
+    private RedisCache redisCache;
+    public boolean register(String name, String password, Long tel, String sex) {
         try{
             User user = new User() ;
             user.setName(name);
-            user.setPassword(password);
+            user.setPassword(Base64Helper.stringToBase64(password));
             user.setTel(tel);
             user.setCreateTime(new Date());
             user.setSex(sex);
@@ -41,8 +44,6 @@ public class UserServiceImpl implements IUserService{
             return false ;
         }
     }
-
-    @Override
     public boolean login(Long tel, String password) {
         try{
             User user = new User() ;
@@ -53,6 +54,24 @@ public class UserServiceImpl implements IUserService{
         }catch(Exception e){
             _logger.error("【登陆】查询数据报错，异常信息：{}",e.getMessage());
             return false ;
+        }
+    }
+
+    @Override
+    public List<User> getUserList(Integer beginIndex, Integer querySize) {
+        String cache_key = RedisCache.CAHCENAME+"|getUserList|"+beginIndex+"|"+querySize;
+        List<User> userList_cache = redisCache.getListCache(cache_key,User.class) ;
+        if(null!=userList_cache&&userList_cache.size()>0){
+            _logger.info("从缓存中获取key={}",cache_key);
+            return userList_cache ;
+        }else{
+            List<User> list = iUserDao.getAllUsers(beginIndex,querySize);
+            for(User user : list){
+                user.setPassword(Base64Helper.base64ToString(user.getPassword()));
+            }
+            redisCache.putListCacheWithExpireTime(cache_key,list,RedisCache.CAHCETIME) ;
+            _logger.info("将key={}放入缓存中，时效60分钟",cache_key);
+            return list;
         }
     }
 }

@@ -57,7 +57,7 @@
             and user.password = #{password}
         </if>
     </select>
-    <select id="getAllUsers" resultType="map">
+    <select id="getAllUsers" resultType="User">
     select
       <include refid="userColumns"><property name="alias" value="user"/></include>
     from t_user user

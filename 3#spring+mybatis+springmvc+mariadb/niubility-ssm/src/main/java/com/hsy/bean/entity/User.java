@@ -22,7 +22,7 @@ public class User {
     private Long createUserId ;
     private Long updateUserId ;
     private Integer score ; //积分
-    private char sex ;
+    private String sex ;
 
     public Long getId() {
         return id;
@@ -96,11 +96,11 @@ public class User {
         this.score = score;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 }
