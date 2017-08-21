@@ -1,4 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hsy.dao.IUserDao">
+    <insert id="saveUser"
+            parameterType="User"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            flushCache="true"
+            statementType="PREPARED"
+            timeout="30"
+    >
+        insert into t_user (name,sex,password,create_time,create_user_id,tel)
+        values (#{name},#{sex},#{password},#{createTime},#{createUserId},#{tel})
+    </insert>
+
+    <update id="updateUser"
+            parameterType="com.hsy.bean.entity.User"
+            flushCache="true"
+            statementType="PREPARED"
+            timeout="20">
+         update t_user user set user.score = #{score},
+                                user.update_time = now(),
+                                user.update_user_id = #{id}
+         WHERE
+         <if test="id != null">
+             user.id = #{id}
+         </if>
+    </update>
+
+    <delete id="deleteUserById"
+            parameterType="com.hsy.bean.entity.User"
+            flushCache="true"
+            statementType="PREPARED"
+            timeout="20">
+        delete t_user user
+        where
+        <if test="id != null">
+          user.id = #{id}
+        </if>
+    </delete>
+    <select id="getUserById" resultType="map">
+        select
+        <include refid="userColumns"><property name="alias" value="user"/></include>
+        from t_user user
+        where user.id = #{id}
+    </select>
+    <select id="getUserByParam" resultType="User">
+        select
+        <include refid="userColumns"><property name="alias" value="user"/></include>
+        from t_user user
+        where
+          1 = 1
+        <if test="tel != null">
+            and user.tel = #{tel}
+        </if>
+        <if test="password != null">
+            and user.password = #{password}
+        </if>
+    </select>
+    <select id="getAllUsers" resultType="map">
+    select
+      <include refid="userColumns"><property name="alias" value="user"/></include>
+    from t_user user
+    limit #{beginIndex} , #{querySize}
+    </select>
+    <sql id="userColumns">
+        ${alias}.id,${alias}.name,${alias}.password,
+        ${alias}.sex,${alias}.create_time,${alias}.create_user_id,
+        ${alias}.update_time,${alias}.update_user_id,${alias}.score,${alias}.tel
+    </sql>
 </mapper>
