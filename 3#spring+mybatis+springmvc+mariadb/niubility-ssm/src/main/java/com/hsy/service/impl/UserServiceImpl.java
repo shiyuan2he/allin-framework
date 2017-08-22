@@ -59,7 +59,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public List<User> getUserList(Integer beginIndex, Integer querySize) {
-        String cache_key = RedisCache.CAHCENAME+"|getUserList|"+beginIndex+"|"+querySize;
+        String cache_key=RedisCache.CAHCENAME+"list:user:"+beginIndex+"_"+querySize;
         List<User> userList_cache = redisCache.getListCache(cache_key,User.class) ;
         if(null!=userList_cache&&userList_cache.size()>0){
             _logger.info("从缓存中获取key={}",cache_key);

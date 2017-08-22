@@ -68,7 +68,7 @@ public class UserController extends BaseController{
     @RequestMapping("/list.do")
     public @ResponseBody ResponseBodyBean<Object> list(@RequestBody String json, HttpSession session){
         _logger.info("进入 /user/list.do ...");
-        List<User> list = userService.getUserList(1,5);
+        List<User> list = userService.getUserList(1,4);
         if(list.size()>0){
             return super.success(list) ;
         }
