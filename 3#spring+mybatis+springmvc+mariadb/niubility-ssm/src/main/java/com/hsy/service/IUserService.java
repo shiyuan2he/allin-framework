@@ -48,4 +48,15 @@ public interface IUserService {
      * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
      */
     List<User> getUserList(Integer beginIndex, Integer querySize) ;
+    /**
+     * @description <p>统一添加积分</p>
+     * @param
+     * @return No such property: code for class: Script1
+     * @author heshiyuan
+     * @date 19/08/2017 3:23 PM
+     * @email shiyuan4work@sina.com
+     * @github https://github.com/shiyuan2he.git
+     * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
+     */
+    void addScore(int score) ;
 }

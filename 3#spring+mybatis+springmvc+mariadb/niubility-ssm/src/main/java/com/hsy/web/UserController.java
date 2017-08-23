@@ -3,6 +3,7 @@ package com.hsy.web;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.hsy.annotation.AspectJLog;
 import com.hsy.bean.entity.User;
 import com.hsy.dto.RequestBodyBean;
 import com.hsy.dto.ResponseBodyBean;
@@ -36,7 +37,7 @@ public class UserController extends BaseController{
 
     @Autowired
     private IUserService userService ;
-
+    @AspectJLog(saveToDb=true,description = "注册")
     @RequestMapping("/register.do")
     public @ResponseBody ResponseBodyBean<Object> register(@RequestBody String json, HttpSession session){
         _logger.info("进入 /user/register.do ...");
@@ -52,6 +53,7 @@ public class UserController extends BaseController{
         _logger.info("退出 /user/register.do ...");
         return super.failure() ;
     }
+    @AspectJLog(saveToDb=true,description = "登陆")
     @RequestMapping("/login.do")
     public @ResponseBody ResponseBodyBean<Object> login(@RequestBody String json, HttpSession session){
         _logger.info("进入 /user/login.do ...");
@@ -65,6 +67,7 @@ public class UserController extends BaseController{
         _logger.info("退出 /user/login.do ...");
         return super.failure() ;
     }
+    @AspectJLog(saveToDb=true,description = "查询")
     @RequestMapping("/list.do")
     public @ResponseBody ResponseBodyBean<Object> list(@RequestBody String json, HttpSession session){
         _logger.info("进入 /user/list.do ...");

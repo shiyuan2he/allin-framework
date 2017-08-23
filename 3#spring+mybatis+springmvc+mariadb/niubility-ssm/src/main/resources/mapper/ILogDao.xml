@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsy.dao.ILogDao">
+    <insert id="saveLog"
+            parameterType="Log"
+            statementType="PREPARED"
+            timeout="30"
+    >
+        insert into t_log(id,request_url,user_id,request_action,timing,
+                          request_method_type,request_param,user_remark,
+                          request_ip,request_address,request_time)
+                  values (#{id},#{requestUrl},#{userId},#{requestAction},#{timing},
+                          #{requestMethodType},#{requestParam,jdbcType=VARCHAR},#{userRemark},
+                          #{requestIp},#{requestAddress},#{requestTime})
+    </insert>
+</mapper>

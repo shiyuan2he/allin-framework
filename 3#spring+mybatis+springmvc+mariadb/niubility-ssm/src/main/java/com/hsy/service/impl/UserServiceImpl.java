@@ -2,6 +2,8 @@ package com.hsy.service.impl;
 
 import com.hsy.bean.entity.User;
 import com.hsy.dao.IUserDao;
+import com.hsy.enums.Constants;
+import com.hsy.exception.BusinessException;
 import com.hsy.javase.secure.Base64Helper;
 import com.hsy.service.IUserService;
 import org.slf4j.Logger;
@@ -66,6 +68,9 @@ public class UserServiceImpl implements IUserService{
             return userList_cache ;
         }else{
             List<User> list = iUserDao.getAllUsers(beginIndex,querySize);
+            if(null==list || list.size() == 0){
+                throw new BusinessException(Constants.DB_SELECT_IS_NULL.getCode(),Constants.DB_SELECT_IS_NULL.getMsg()) ;
+            }
             for(User user : list){
                 user.setPassword(Base64Helper.base64ToString(user.getPassword()));
             }
@@ -73,5 +78,11 @@ public class UserServiceImpl implements IUserService{
             _logger.info("将key={}放入缓存中，时效60分钟",cache_key);
             return list;
         }
+    }
+
+    @Override
+    public void addScore(int score) {
+        _logger.info("正在给每个用户添加{}积分",score);
+        iUserDao.addScore(score) ;
     }
 }

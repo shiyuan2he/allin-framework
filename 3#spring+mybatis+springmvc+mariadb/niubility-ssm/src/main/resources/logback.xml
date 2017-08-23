@@ -8,6 +8,13 @@
         </encoder>
     </appender>
 
+    <logger name="org.springframework.scheduling">
+        <level value="info" />
+    </logger>
+    <logger name="org.springframework.web">
+        <level value="debug" />
+    </logger>
+
     <root level="debug">
         <appender-ref ref="console"/>
     </root>

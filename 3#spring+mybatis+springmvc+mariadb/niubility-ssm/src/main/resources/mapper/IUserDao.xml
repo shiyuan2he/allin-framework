@@ -13,6 +13,14 @@
         values (#{name},#{sex},#{password},#{createTime},#{createUserId},#{tel})
     </insert>
 
+    <update id="addScore"
+            parameterType="Integer"
+            statementType="PREPARED"
+            timeout="100"
+    >
+        update t_user set score = score + #{score}
+    </update>
+
     <update id="updateUser"
             parameterType="com.hsy.bean.entity.User"
             flushCache="true"

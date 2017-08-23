@@ -25,6 +25,8 @@
         <mariadb.clent.version>2.0.3</mariadb.clent.version>
         <servlert.api.version>3.1.0</servlert.api.version>
         <jackson.version>2.8.8</jackson.version>
+        <quatz.version>2.3.0</quatz.version>
+        <jstl.version>1.2</jstl.version>
     </properties>
     <dependencies>
         <!-- 数据访问层 start-->
@@ -58,6 +60,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <dependency>
@@ -115,7 +122,16 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quatz.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
