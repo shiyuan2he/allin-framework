@@ -22,6 +22,6 @@ public class ILogServiceImpl implements ILogService {
     ILogDao iLogDao ;
     @Override
     public int saveLog(Log log) {
-        iLogDao.saveLog(log);
+        return iLogDao.saveLog(log);
     }
 }

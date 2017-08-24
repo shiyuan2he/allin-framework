@@ -11,8 +11,8 @@ package com.hsy.utils;
  * @price ¥5    微信：hewei1109
  */
 public class Constants {
-    public final static String commonFailureCode = "NB9999" ;
+    /*public final static String commonFailureCode = "NB9999" ;
     public final static String commonSuccessCode = "NB0000" ;
     public final static String commonFailure = "操作失败，请联系管理员！" ;
-    public final static String commonSuccess = "操作成功！" ;
+    public final static String commonSuccess = "操作成功！" ;*/
 }

@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface AspectJLog {
+public @interface AspectJLogAnnotation {
     boolean saveToDb() default false;
     String description() default "";
 }

@@ -1,7 +1,6 @@
 package com.hsy.web;
-
-import com.hsy.utils.Constants;
 import com.hsy.dto.ResponseBodyBean;
+import com.hsy.enums.Constants;
 
 /**
  * @author heshiyuan
@@ -25,7 +24,7 @@ public class BaseController {
      * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
      */
     protected ResponseBodyBean<Object> failure(){
-        return new ResponseBodyBean<>(false,Constants.commonFailureCode,Constants.commonFailure) ;
+        return new ResponseBodyBean<>(false,Constants.RETURN_COMMON_FAILURE.getCode(), Constants.RETURN_COMMON_FAILURE.getMsg()) ;
     }
     /**
      * @description <p>定制失败返回</p>
@@ -51,7 +50,7 @@ public class BaseController {
      * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
      */
     protected ResponseBodyBean<Object> failure(String errorInfo){
-        return new ResponseBodyBean<>(false, Constants.commonFailureCode,errorInfo) ;
+        return new ResponseBodyBean<>(false,Constants.RETURN_COMMON_FAILURE.getCode(),Constants.RETURN_COMMON_FAILURE.getMsg()) ;
     }
     /**
      * @description <p>通用失败返回</p>
@@ -64,7 +63,7 @@ public class BaseController {
      * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
      */
     protected ResponseBodyBean<Object> success(){
-        return new ResponseBodyBean<>(true,Constants.commonSuccessCode, Constants.commonSuccess) ;
+        return new ResponseBodyBean<>(true,Constants.RETURN_COMMON_SUCCESS.getCode(),Constants.RETURN_COMMON_SUCCESS.getMsg()) ;
     }
     /**
      * @description <p>定制失败返回</p>
@@ -77,6 +76,6 @@ public class BaseController {
      * Copyright (c) 2016 shiyuan4work@sina.com All rights reserved
      */
     protected ResponseBodyBean<Object> success(Object obj){
-        return new ResponseBodyBean<>(true,Constants.commonSuccessCode,obj) ;
+        return new ResponseBodyBean<>(true,Constants.RETURN_COMMON_SUCCESS.getCode(),obj) ;
     }
 }

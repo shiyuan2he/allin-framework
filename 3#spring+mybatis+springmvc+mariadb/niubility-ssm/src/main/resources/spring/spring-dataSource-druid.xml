@@ -31,6 +31,12 @@
         <property name="minEvictableIdleTimeMillis" value="${db.druid.minEvictableIdleTimeMillis}"/>
         <!-- 用来检测连接是否有效的SQL，要求是一个查询语句 -->
         <property name="validationQuery" value="${db.druid.validationQuery}"/>
+        <!-- 超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="true" />
+        <!-- 超时时间；单位为秒。180秒=3分钟 -->
+        <property name="removeAbandonedTimeout" value="180" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true" />
         <!-- 申请连接的时候检测 -->
         <property name="testWhileIdle" value="${db.druid.testWhileIdle}"/>
         <!-- 申请连接时执行validationQuery是否有效，配置为true时会降低性能 -->

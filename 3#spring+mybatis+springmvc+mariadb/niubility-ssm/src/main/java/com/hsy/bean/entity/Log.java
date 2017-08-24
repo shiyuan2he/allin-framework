@@ -25,6 +25,7 @@ public class Log {
     private String requestAddress ;
     private Date requestTime ;
     private String requestResponse ;//请求返回结果
+    private String requestThreadId ;
 
     public Long getId() {
         return id;
@@ -122,6 +123,14 @@ public class Log {
         this.requestResponse = requestResponse;
     }
 
+    public String getRequestThreadId() {
+        return requestThreadId;
+    }
+
+    public void setRequestThreadId(String requestThreadId) {
+        this.requestThreadId = requestThreadId;
+    }
+
     @Override
     public String toString() {
         return "Log{" +
@@ -137,6 +146,7 @@ public class Log {
                 ", requestAddress='" + requestAddress + '\'' +
                 ", requestTime=" + requestTime +
                 ", requestResponse='" + requestResponse + '\'' +
+                ", requestThreadId='" + requestThreadId + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,8 @@
 package com.hsy.thread;
 
 import com.hsy.bean.entity.Log;
+import com.hsy.enums.Constants;
+import com.hsy.exception.BusinessException;
 import com.hsy.service.ILogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,7 @@ public class LogThread implements Runnable {
             }
         }catch(Exception e){
             _logger.info("保存日志出现异常！");
+            throw new BusinessException(Constants.DB_INSERT_RESULT_ERROR.getCode(),Constants.DB_INSERT_RESULT_ERROR.getMsg());
         }
     }
 }

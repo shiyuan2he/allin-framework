@@ -8,9 +8,9 @@
     >
         insert into t_log(id,request_url,user_id,request_action,timing,
                           request_method_type,request_param,user_remark,
-                          request_ip,request_address,request_time)
+                          request_ip,request_address,request_time,request_response,request_thread_id)
                   values (#{id},#{requestUrl},#{userId},#{requestAction},#{timing},
                           #{requestMethodType},#{requestParam,jdbcType=VARCHAR},#{userRemark},
-                          #{requestIp},#{requestAddress},#{requestTime})
+                          #{requestIp},#{requestAddress},#{requestTime},#{requestResponse},#{requestThreadId})
     </insert>
 </mapper>

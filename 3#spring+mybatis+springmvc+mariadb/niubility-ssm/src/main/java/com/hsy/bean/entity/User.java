@@ -1,5 +1,7 @@
 package com.hsy.bean.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -17,7 +19,9 @@ public class User {
     private String name ;//用户名称
     private String password;//用户登陆密码
     private Long tel ;//用户联系方式
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime ;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date updateTime ;
     private Long createUserId ;
     private Long updateUserId ;

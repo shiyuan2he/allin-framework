@@ -11,20 +11,17 @@ package com.hsy.enums;
  * @price ¥5    微信：hewei1109
  */
 public enum Constants {
+    // 系统异常
+    SESSION_IS_OUT_TIME("99980003", "会话超时"),
     RETURN_COMMON_FAILURE("NB9999","操作失败，请联系管理员!"),
     RETURN_COMMON_SUCCESS("NB0000","NB0000"),
-    // 数据库想操作异常
-    DB_INSERT_RESULT_ERROR("99990001", "db insert error"),
-    DB_UPDATE_RESULT_ERROR("99990002", "db update error"),
+    // 数据库操作异常
     DB_SELECT_IS_NULL("NB2000","db select return null"),
-
-    // 系统异常
-    INNER_ERROR("99980001", "系统错误"),
-    SESSION_IS_OUT_TIME("99980003", "会话超时"),
+    DB_INSERT_RESULT_ERROR("NB2001", "db insert error"),
+    DB_UPDATE_RESULT_ERROR("NB2002", "db update error"),
 
     // 用户相关异常
     INVALID_USER("1001001", "无效用户");
-    ;
 
     private String code ;
     private String msg ;
