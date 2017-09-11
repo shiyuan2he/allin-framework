@@ -16,7 +16,6 @@ public class RequestBodyBean<T> {
     private String key ;//秘钥
     private String requestTime ;// 请求时间
     private T param ;
-    private User user ;
 
     public String getKey() {
         return key;
@@ -40,13 +39,5 @@ public class RequestBodyBean<T> {
 
     public void setParam(T param) {
         this.param = param;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

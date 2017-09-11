@@ -1,13 +1,16 @@
 package com.hsy.web;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.hsy.annotation.AspectJLogAnnotation;
 import com.hsy.bean.entity.User;
+import com.hsy.bean.javabean.LoginParam;
+import com.hsy.bean.javabean.RegisterParam;
 import com.hsy.dto.RequestBodyBean;
 import com.hsy.dto.ResponseBodyBean;
+import com.hsy.enums.ConstantsEnum;
 import com.hsy.service.IUserService;
 import com.hsy.utils.BusinessUtils;
+import com.hsy.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -40,11 +45,9 @@ public class UserController extends BaseController{
     @RequestMapping("/register.do")
     public @ResponseBody ResponseBodyBean<Object> register(@RequestBody String json, HttpSession session){
         _logger.info("进入 /user/register.do ...");
-        RequestBodyBean requestBody =  JSON.parseObject(json,new TypeReference<RequestBodyBean>(){}) ;
-        User user = requestBody.getUser() ;
-        //User user = BusinessUtils.requestJsonToBean(json,User.class) ;
-        if(BusinessUtils.validateParamForRegister(user)){
-            boolean flag = userService.register(user.getName(),user.getPassword(),user.getTel(),user.getSex());
+        RegisterParam registerParam = BusinessUtils.requestJsonToBean(json,RegisterParam.class) ;
+        if(BusinessUtils.validateParamForRegister(registerParam)){
+            boolean flag = userService.register(registerParam.getName(),registerParam.getPassword(),registerParam.getTel(),registerParam.getSex());
             if(flag){
                 return super.success() ;
             }
@@ -54,14 +57,26 @@ public class UserController extends BaseController{
     }
     @AspectJLogAnnotation(saveToDb=true,description = "登陆")
     @RequestMapping("/login.do")
-    public @ResponseBody ResponseBodyBean<Object> login(@RequestBody String json, HttpSession session){
+    public @ResponseBody ResponseBodyBean<Object> login(@RequestBody String json,HttpServletRequest request,HttpServletResponse response){
+        Constants.requestThreadLocal = new ThreadLocal<HttpServletRequest>(){
+            @Override
+            protected HttpServletRequest initialValue() {
+                return request ;
+            }
+        };
+        Constants.responseThreadLocal =  new ThreadLocal<HttpServletResponse>(){
+            @Override
+            protected HttpServletResponse initialValue() {
+                return response ;
+            }
+        };
         _logger.info("进入 /user/login.do ...");
-        RequestBodyBean requestBody =  JSON.parseObject(json,new TypeReference<RequestBodyBean>(){}) ;
-        User user = requestBody.getUser() ;
-        //User user = BusinessUtils.requestJsonToBean(json,User.class) ;
-        boolean flag = userService.login(user.getTel(),user.getPassword());
-        if(flag){
-            return super.success() ;
+        LoginParam login = BusinessUtils.requestJsonToBean(json,LoginParam.class) ;
+        if(null!=login){
+            boolean flag = userService.login(login.getTel(),login.getPassword());
+            if(flag){
+                return super.success() ;
+            }
         }
         _logger.info("退出 /user/login.do ...");
         return super.failure() ;

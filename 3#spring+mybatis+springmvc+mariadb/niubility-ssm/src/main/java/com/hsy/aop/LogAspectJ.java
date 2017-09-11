@@ -3,10 +3,13 @@ package com.hsy.aop;
 import com.alibaba.fastjson.JSONObject;
 import com.hsy.annotation.AspectJLogAnnotation;
 import com.hsy.bean.entity.Log;
+import com.hsy.bean.javabean.SessionBean;
+import com.hsy.enums.ConstantsEnum;
 import com.hsy.javase.utils.MathHelper;
 import com.hsy.service.ILogService;
 import com.hsy.thread.LogThread;
 import com.hsy.thread.pool.FixedThreadPool;
+import com.hsy.utils.Constants;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -67,7 +70,7 @@ public class LogAspectJ {
     }
 
     @Around("methodCachePointcut() && @annotation(aspectJLogAnnotation)")
-    public void logAspectJ(ProceedingJoinPoint joinPoint,AspectJLogAnnotation aspectJLogAnnotation) throws Throwable {
+    public Object logAspectJ(ProceedingJoinPoint joinPoint,AspectJLogAnnotation aspectJLogAnnotation) throws Throwable {
         _logger.info("【切面日志】注解切面开始。。。");
         Object obj = null;
         // 获取调用方法的参数
@@ -84,6 +87,7 @@ public class LogAspectJ {
         }
         saveLogToDB(joinPoint,aspectJLogAnnotation, (endTime-startTime),args, obj, null);
         _logger.info("【切面日志】注解切面结束。。。");
+        return obj ;
     }
     @After("methodCachePointcut()")
     public void afterInvokeInterface(JoinPoint joinPoint){
@@ -114,15 +118,23 @@ public class LogAspectJ {
             aspectJLog = getAspectJLog(joinPoint, args);
         }
         if(null!=aspectJLog&&aspectJLog.saveToDb()){
-            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            HttpServletRequest request ;
+            try{
+                request = Constants.requestThreadLocal.get() ;
+            }catch(Exception e1){
+                request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            }
             //接下来是入库操作
             Log log = new Log() ;
             if(null!=request){
                 log.setRequestMethodType(request.getScheme()+"("+request.getMethod()+")");
                 log.setRequestIp(request.getServerName());
                 log.setRequestUrl(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getRequestURI());
-                //log.setRequestUrl(joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName());
                 log.setRequestParam(getRequestParamByArgs(args));
+                SessionBean sessionBean = (SessionBean) request.getSession().getAttribute(ConstantsEnum.SESSION_KEY.getCode());
+                if(null!=sessionBean){
+                    log.setUserId(sessionBean.getId());
+                }
             }
             log.setRequestThreadId(Thread.currentThread().getName()+"-"+String.valueOf(Thread.currentThread().getId()));
             log.setId(MathHelper.generateRandomOfLongByLength(18));
@@ -134,7 +146,6 @@ public class LogAspectJ {
             }else{
                 log.setRequestResponse(JSONObject.toJSONString(obj));
             }
-            //此处 submit跟execute的区别
             /**
              * @description <p>
              *                  execute(Runnable x) 没有返回值。可以执行任务，但无法判断任务是否成功完成。

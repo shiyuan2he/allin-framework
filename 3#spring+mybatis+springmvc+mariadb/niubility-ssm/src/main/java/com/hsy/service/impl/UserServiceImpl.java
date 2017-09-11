@@ -1,13 +1,16 @@
 package com.hsy.service.impl;
 
 import com.hsy.bean.entity.User;
+import com.hsy.bean.javabean.SessionBean;
 import com.hsy.dao.IUserDao;
-import com.hsy.enums.Constants;
+import com.hsy.enums.ConstantsEnum;
 import com.hsy.exception.BusinessException;
 import com.hsy.javase.secure.Base64Helper;
 import com.hsy.service.IUserService;
+import com.hsy.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.hsy.cache.RedisCache ;
@@ -49,14 +52,20 @@ public class UserServiceImpl implements IUserService{
     public boolean login(Long tel, String password) {
         try{
             User user = new User() ;
-            user.setPassword(password);
+            user.setPassword(Base64Helper.stringToBase64(password));
             user.setTel(tel);
-            iUserDao.getUserByParam(user) ;
-            return true ;
+            User returnUser = iUserDao.getUserByParam(user) ;
+            if(null!=returnUser){
+                SessionBean sessionBean = new SessionBean(returnUser.getId(),returnUser.getName(),returnUser.getTel());
+                //BeanUtils.copyProperties(sessionBean,returnUser);
+                _logger.info("将用户信息{}放入session中",sessionBean.toString());
+                Constants.requestThreadLocal.get().getSession().setAttribute(ConstantsEnum.SESSION_KEY.getCode(),sessionBean);
+                return true ;
+            }
         }catch(Exception e){
             _logger.error("【登陆】查询数据报错，异常信息：{}",e.getMessage());
-            return false ;
         }
+        return false ;
     }
 
     @Override
@@ -67,9 +76,9 @@ public class UserServiceImpl implements IUserService{
             _logger.info("从缓存中获取key={}",cache_key);
             return userList_cache ;
         }else{
-            List<User> list = iUserDao.getAllUsers(beginIndex,querySize);
+            List<User> list = iUserDao.getAllUsers((beginIndex-1) * querySize,querySize);
             if(null==list || list.size() == 0){
-                throw new BusinessException(Constants.DB_SELECT_IS_NULL.getCode(),Constants.DB_SELECT_IS_NULL.getMsg()) ;
+                throw new BusinessException(ConstantsEnum.DB_SELECT_IS_NULL.getCode(), ConstantsEnum.DB_SELECT_IS_NULL.getMsg()) ;
             }
             for(User user : list){
                 user.setPassword(Base64Helper.base64ToString(user.getPassword()));

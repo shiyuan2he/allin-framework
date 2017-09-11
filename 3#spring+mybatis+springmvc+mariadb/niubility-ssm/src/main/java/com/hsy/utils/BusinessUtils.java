@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.hsy.bean.entity.User;
+import com.hsy.bean.javabean.RegisterParam;
 import com.hsy.dto.RequestBodyBean;
 import com.hsy.javase.json.JsonHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -35,8 +36,7 @@ public class BusinessUtils {
         if(null == json || "".equals(json)) return  null;
         try{
             RequestBodyBean<T> requestBody =  JSON.parseObject(json,new TypeReference<RequestBodyBean>(){}) ;
-            T params = requestBody.getParam();
-            return params;
+            return JSON.parseObject(requestBeanToJson(requestBody.getParam()),clazz) ;
         }catch(Exception e){
             _logger.error("请求参数解析错误,json数据是:{}",json);
         }
@@ -55,7 +55,7 @@ public class BusinessUtils {
     public static String requestBeanToJson(Object obj){
         return JsonHelper.obj2Json(obj) ;
     }
-    public static boolean validateParamForRegister(User user){
+    public static boolean validateParamForRegister(RegisterParam user){
         if(StringUtils.isNotBlank(user.getName())
                 && StringUtils.isNotBlank(user.getPassword())
                 && StringUtils.isNotBlank(user.getSex())

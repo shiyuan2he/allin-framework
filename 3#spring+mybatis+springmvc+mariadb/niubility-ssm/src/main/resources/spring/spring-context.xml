@@ -31,6 +31,7 @@
     <import resource="spring-quartz.xml"/>
     <import resource="spring-aop.xml"/>
     <import resource="spring-thread.xml"/>
+    <import resource="spring-tx.xml"/>
 	<!--全局异常捕捉 -->
 	<bean class="com.hsy.exception.GlobalException"/>
 </beans>

@@ -14,7 +14,13 @@ public class SessionBean {
 
     private Long id;
     private String name ;//
-    private String tel ;
+    private Long tel ;
+
+    public SessionBean(Long id, String name, Long tel) {
+        this.id = id;
+        this.name = name;
+        this.tel = tel;
+    }
 
     public Long getId() {
         return id;
@@ -32,11 +38,20 @@ public class SessionBean {
         this.name = name;
     }
 
-    public String getTel() {
+    public Long getTel() {
         return tel;
     }
 
-    public void setTel(String tel) {
+    public void setTel(Long tel) {
         this.tel = tel;
+    }
+
+    @Override
+    public String toString() {
+        return "SessionBean{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", tel='" + tel + '\'' +
+                '}';
     }
 }
