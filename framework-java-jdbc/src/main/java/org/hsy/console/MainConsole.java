@@ -58,13 +58,13 @@ public class MainConsole {
                         System.exit(1);//退出程序，返回值随便设置
                         break;
                     case 1:
-                        mainConsole.CommodityMaintenanceConsole();
+//                        mainConsole.CommodityMaintenanceConsole();
                         break;
                     case 2:
-                        mainConsole.checkstandLogConsole();
+//                        mainConsole.checkstandLogConsole();
                         break;
                     case 3:
-                        mainConsole.commodityManagementConsole();
+//                        mainConsole.commodityManagementConsole();
                         break;
                     default:
                         break;

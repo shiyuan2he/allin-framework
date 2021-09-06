@@ -35,10 +35,13 @@ import java.util.List;
 public class BusinessServlet extends HttpServlet {
     private static final Logger _logger = Logger.getLogger(BusinessServlet.class) ;
     IGoodsService goodsService ;
+
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        this.doPost(request,response);
     }
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Constant.requestThreadLocal = new ThreadLocal<HttpServletRequest>(){
             @Override
