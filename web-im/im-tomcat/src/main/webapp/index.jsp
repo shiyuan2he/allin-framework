@@ -1,27 +1,38 @@
-<%@page language="java" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ctxpath" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}"/>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-    <title>Java后端WebSocket的Tomcat实现</title>
+        <meta charset=UTF-8">
+        <title>websocket 测试</title>
     </head>
-    <body>
-        Welcome<br/>
-        <input id="text" type="text"/>
-        <button onclick="send()">发送消息</button>
-        <hr/>
-        <button onclick="closeWebSocket()">关闭WebSocket连接</button>
-        <hr/>
-        <div id="message"></div>
+<body>
+    <h2>Hello World!</h2>
+    <div>
+    <span>sessionId:</span>
+    <%
+        HttpSession s= request.getSession();
+        out.println(s.getId());
+    %>
+    </div>
+    <input id="sessionId" type="hidden" value="<%=session.getId() %>" />
+    <input id="text" type="text" />
+    <button onclick="send()">发送消息</button> <hr />
+    <button onclick="closeWebSocket()">关闭WebSocket连接</button> <hr />
+    <div id="message"></div>
 </body>
-
+<script type="text/javascript" src="http://localhost:8080/tomcat/static/js/sockjs-0.3.min.js"></script>
 <script type="text/javascript">
     let websocket = null;
-    //判断当前浏览器是否支持WebSocket
-    if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:8080/tomcat/ws/test");
-    }
-    else {
-        alert('当前浏览器 Not support websocket');
+    if('WebSocket' in window) {
+        websocket = new WebSocket("ws://localhost:8080/tomcat/websocket/webSocketByTomcat/"+document.getElementById('sessionId').value);
+    } else if('MozWebSocket' in window) {
+        websocket = new MozWebSocket("ws://localhost:8080/tomcat/websocket/webSocketByTomcat/"+document.getElementById('sessionId').value);
+    } else {
+        websocket = new SockJS("localhost:8080/tomcat/websocket/webSocketByTomcat/"+document.getElementById('sessionId').value);
     }
 
     //连接发生错误的回调方法
@@ -61,7 +72,7 @@
 
     //发送消息
     function send() {
-    let message = document.getElementById('text').value;
+        let message = document.getElementById('text').value;
         websocket.send(message);
     }
 </script>

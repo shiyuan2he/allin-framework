@@ -1,4 +1,4 @@
-package org.hsy.web.im;
+package org.hsy.web.im.tomcat;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;

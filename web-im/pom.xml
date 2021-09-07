@@ -9,7 +9,7 @@
   <version>1.0</version>
     <modules>
         <module>im-tomcat</module>
-        <module>im-java</module>
+        <module>im-client-java</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -13,7 +13,7 @@
     <artifactId>im-tomcat</artifactId>
     <packaging>war</packaging>
 
-    <name>im-tomcat Maven Webapp</name>
+    <name>im-tomcat</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 

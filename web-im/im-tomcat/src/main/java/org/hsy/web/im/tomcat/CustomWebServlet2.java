@@ -1,6 +1,9 @@
-package org.hsy.web.im;
+package org.hsy.web.im.tomcat;
 
-import javax.servlet.*;
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.logging.Logger;
