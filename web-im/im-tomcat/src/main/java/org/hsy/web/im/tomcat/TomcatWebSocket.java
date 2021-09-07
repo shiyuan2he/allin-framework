@@ -1,4 +1,4 @@
-package org.hsy.web.im.socket;
+package org.hsy.web.im.tomcat;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
